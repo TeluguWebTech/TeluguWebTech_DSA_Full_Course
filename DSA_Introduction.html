@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>DSA Mastery | Data Structures & Algorithms | Complete Beginner to Advanced Course</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f5f9ff 0%, #eef2f8 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2f3f;
+      line-height: 1.55;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1350px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(125deg, #0a2e3f 0%, #1b5a78 100%);
+      padding: 2.2rem 2.5rem;
+      color: white;
+      border-bottom: 5px solid #f4a261;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff, #ffd6a5);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .hero-badge {
+      background: #f4a261;
+      color: #1a2f3f;
+      font-weight: 700;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 0.8rem;
+    }
+
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      opacity: 0.92;
+      max-width: 85%;
+    }
+
+    .content {
+      padding: 2rem 2.5rem 2.8rem;
+    }
+
+    /* Typography */
+    .section-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin: 2rem 0 1rem 0;
+      border-left: 6px solid #f4a261;
+      padding-left: 1rem;
+      color: #0c3b4f;
+    }
+
+    .section-subtitle {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 1.2rem 0 0.8rem 0;
+      color: #2c5a6e;
+    }
+
+    /* Cards */
+    .info-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e6edf4;
+      transition: transform 0.2s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Prerequisites Special Card */
+    .prereq-card {
+      background: linear-gradient(135deg, #fff8ed 0%, #fff3e0 100%);
+      border-left: 6px solid #e76f51;
+      margin-bottom: 2rem;
+    }
+
+    .prereq-card .section-subtitle {
+      color: #c4450c;
+    }
+
+    /* Visual / Diagram */
+    .visual-box {
+      background: #fef9f0;
+      border-radius: 1.2rem;
+      padding: 1.2rem;
+      margin: 1rem 0;
+      text-align: center;
+      font-family: 'Fira Code', monospace;
+      border: 1px dashed #f4a261;
+    }
+
+    .code-block {
+      background: #0e2a36;
+      border-radius: 1.2rem;
+      padding: 1rem 1.5rem;
+      margin: 1.2rem 0;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: #e2f0fa;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .output {
+      background: #1e2f3a;
+      color: #bbe1ff;
+      font-family: 'Fira Code', monospace;
+      padding: 0.7rem 1.2rem;
+      border-radius: 14px;
+      margin-top: 0.8rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin: 1.2rem 0;
+    }
+
+    .tip-card {
+      background: #fef7e8;
+      border-left: 5px solid #f4a261;
+      padding: 1rem;
+      border-radius: 1rem;
+    }
+
+    .interview-box {
+      background: #fff6e8;
+      padding: 1.2rem;
+      border-radius: 1.2rem;
+      margin-top: 1.2rem;
+      border-left: 6px solid #f4a261;
+    }
+
+    hr {
+      margin: 2rem 0;
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, #f4a261, #cfe3ef);
+    }
+
+    .checklist {
+      list-style: none;
+      margin-left: 0;
+    }
+    .checklist li {
+      margin: 0.6rem 0;
+      padding-left: 1.8rem;
+      position: relative;
+    }
+    .checklist li::before {
+      content: "✅";
+      position: absolute;
+      left: 0;
+      color: #2e7d64;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #d4e2ec;
+      color: #3f6b84;
+    }
+
+    @media (max-width: 700px) {
+      .hero p { max-width: 100%; }
+      .content { padding: 1.2rem; }
+      .section-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📊 DSA Mastery: Data Structures & Algorithms</h1>
+    <div class="hero-badge">🎯 Complete Course | Beginner → Advanced | Interview Focused</div>
+    <p>Learn how to organize data efficiently and solve real-world problems with optimal algorithms. Practical examples, visual diagrams, and professional teaching methodology.</p>
+  </div>
+
+  <div class="content">
+    
+    <!-- ========== PREREQUISITES SECTION (NEW - ADDED AT TOP) ========== -->
+    <div class="section-title">📋 Prerequisites: Java Basics You Must Know</div>
+    <div class="info-card prereq-card">
+      <p>Before diving into Data Structures & Algorithms, make sure you are comfortable with these <strong>Java fundamentals</strong>. Don't worry — this course will still be beginner-friendly, but knowing these concepts will help you grasp DSA faster.</p>
+      
+      <div class="section-subtitle">🔹 Core Java Concepts Required</div>
+      <div class="grid-2">
+        <div class="tip-card">
+          <strong>📦 Variables & Data Types</strong>
+          <ul style="margin-left: 1rem; margin-top: 0.4rem;">
+            <li>int, double, char, boolean, String</li>
+            <li>Variable declaration & initialization</li>
+          </ul>
+        </div>
+        <div class="tip-card">
+          <strong>⚙️ Operators</strong>
+          <ul style="margin-left: 1rem; margin-top: 0.4rem;">
+            <li>Arithmetic (+, -, *, /, %)</li>
+            <li>Comparison (==, !=, >, <, >=, <=)</li>
+            <li>Logical (&&, ||, !)</li>
+          </ul>
+        </div>
+        <div class="tip-card">
+          <strong>🔄 Control Flow</strong>
+          <ul style="margin-left: 1rem; margin-top: 0.4rem;">
+            <li>if-else, if-else-if ladder</li>
+            <li>Loops: for, while, do-while</li>
+            <li>break & continue statements</li>
+          </ul>
+        </div>
+        <div class="tip-card">
+          <strong>📚 Arrays & Methods</strong>
+          <ul style="margin-left: 1rem; margin-top: 0.4rem;">
+            <li>Single & Multi-dimensional arrays</li>
+            <li>Method declaration & calling</li>
+            <li>Parameters & return types</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="visual-box" style="margin-top: 0.5rem;">
+        💡 <strong>Quick Self-Check:</strong> Can you write a simple program that takes user input, loops through an array, and prints the largest number? If yes → You're ready! ✅
+      </div>
+
+      <!-- <div class="code-block">
+        <pre>// Sample code to test your Java basics
+import java.util.Scanner;
+
+public class TestPrerequisites {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter how many numbers: ");
+        int n = sc.nextInt();
+        
+        int[] arr = new int[n];
+        System.out.println("Enter " + n + " numbers:");
+        for(int i = 0; i < n; i++) {
+            arr[i] = sc.nextInt();
+        }
+        
+        int max = arr[0];
+        for(int i = 1; i < n; i++) {
+            if(arr[i] > max) {
+                max = arr[i];
+            }
+        }
+        System.out.println("Largest number: " + max);
+        sc.close();
+    }
+}</pre>
+      </div> -->
+      
+      <div class="output">📌 If you understand the above code completely, you have the prerequisites to master DSA with this course!</div>
+    </div>
+
+    <!-- ========== MODULE 1: CORE CONCEPTS ========== -->
+    <div class="section-title">📌 Module 1: Understanding the Building Blocks</div>
+    
+    <div class="info-card">
+      <div class="section-subtitle">🔹 1. Data – The Raw Material</div>
+      <p><strong>Data</strong> is any collection of raw, unprocessed facts — numbers, text, images, or symbols. By itself, data carries no meaning. It becomes valuable only after processing.</p>
+      <div class="visual-box">
+        📦 <strong>Raw Data:</strong> "Product: Laptop | Price: 75000 | Stock: 12" → just numbers & words<br>
+        🧠 <strong>After Processing:</strong> "Laptop is in stock with 12 units at ₹75,000" → Meaningful information
+      </div>
+      <div class="output">💡 Key Insight: Data + Processing = Information</div>
+    </div>
+
+    <div class="info-card">
+      <div class="section-subtitle">🔹 2. Structure – Organizing Data for Efficiency</div>
+      <p>A <strong>data structure</strong> is a specialized way of organizing, storing, and accessing data so that operations (search, insert, delete) become fast and efficient.</p>
+      <div class="visual-box">
+        🏢 <strong>Real-world example – Hospital Patient Records:</strong><br>
+        ❌ Without structure: All records in one unsorted pile → takes 30 minutes to find a patient<br>
+        ✅ With structure: Sorted by ID + indexed by name → find any record in 2 seconds
+      </div>
+      <div class="grid-2">
+        <div class="tip-card">📚 <strong>Library Analogy:</strong> Books arranged by genre → author → title. You find any book instantly!</div>
+        <div class="tip-card">💻 <strong>Programming Structures:</strong> Arrays, Linked Lists, Stacks, Queues, Trees, Hash Tables</div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="section-subtitle">🔹 3. Algorithm – Step-by-Step Problem Solving</div>
+      <p>An <strong>algorithm</strong> is a finite sequence of well-defined instructions to solve a specific problem. It takes input, processes it, and produces output.</p>
+      <div class="visual-box">
+        🍕 <strong>Algorithm: Making a Pizza</strong><br>
+        1. Prepare dough → 2. Add sauce & cheese → 3. Add toppings → 4. Bake at 200°C for 15 min → 5. Serve hot 🍕
+      </div>
+      <div class="code-block">
+        <pre>// Algorithm: Find maximum number in an array
+Input: [3, 8, 1, 9, 4]
+Step 1: Assume first element is max = 3
+Step 2: Compare with 8 → max = 8
+Step 3: Compare with 1 → max stays 8
+Step 4: Compare with 9 → max = 9
+Step 5: Compare with 4 → max stays 9
+Output: 9</pre>
+      </div>
+      <div class="output">⚙️ Every app, website, and software runs on algorithms behind the scenes.</div>
+    </div>
+
+    <!-- ========== MODULE 2: DSA DEFINED ========== -->
+    <div class="section-title">🧠 Module 2: What is DSA (Data Structures & Algorithms)?</div>
+    <div class="info-card">
+      <p><strong>DSA = Data Structures + Algorithms</strong>. It is the <strong>foundation of computer science</strong> and <strong>efficient programming</strong>. DSA teaches you two critical skills:</p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.8rem;">
+        <li>✅ <strong>How to organize data</strong> for fast access and modification (Data Structures)</li>
+        <li>✅ <strong>How to solve problems</strong> using minimal time and memory (Algorithms)</li>
+      </ul>
+      <div class="visual-box">
+        🔥 <strong>The DSA Mindset:</strong><br>
+        ❌ "My code works" → Good<br>
+        ✅ "My code works and runs 100x faster using 90% less memory" → That's DSA!
+      </div>
+    </div>
+
+    <!-- ========== MODULE 3: WHY DSA? ========== -->
+    <div class="section-title">🎯 Module 3: Why Every Developer MUST Learn DSA</div>
+    <div class="grid-2">
+      <div class="info-card">
+        <div class="section-subtitle">💼 Crack Top Company Interviews</div>
+        <p>Google, Amazon, Microsoft, Meta — all ask DSA questions in coding interviews. They test your problem-solving ability, not memorization.</p>
+        <div class="output">📊 70% of technical interview questions are based on DSA!</div>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">⚡ Write Efficient Code</div>
+        <p>Process millions of records in seconds instead of minutes. Optimize memory usage for mobile and embedded systems.</p>
+        <div class="visual-box">Example: Searching in 1 million records<br>Linear Search: 500,000 steps avg<br>Binary Search (with sorting): only 20 steps! 🚀</div>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">🧩 Build Complex Systems</div>
+        <p>Databases, compilers, AI models, game engines — all rely heavily on advanced data structures and algorithms.</p>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">🏆 Become a Better Problem Solver</div>
+        <p>DSA trains your brain to break down complex problems into manageable pieces — a skill valuable in every programming domain.</p>
+      </div>
+    </div>
+
+    <!-- ========== MODULE 4: COURSE CURRICULUM ========== -->
+    <div class="section-title">📚 Module 4: Complete Course Curriculum (What You'll Learn)</div>
+    <div class="grid-2">
+      <div class="info-card">
+        <div class="section-subtitle">📦 Fundamental Data Structures</div>
+        <ul style="margin-left: 1.2rem;">
+          <li>Arrays & Dynamic Arrays</li>
+          <li>Singly & Doubly Linked Lists</li>
+          <li>Stacks (LIFO) & Queues (FIFO)</li>
+          <li>Hash Tables / Hash Maps</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">🌳 Advanced Data Structures</div>
+        <ul style="margin-left: 1.2rem;">
+          <li>Binary Trees & BST</li>
+          <li>AVL Trees & Red-Black Trees</li>
+          <li>Heaps & Priority Queues</li>
+          <li>Graphs (Adjacency Matrix/List)</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">⚙️ Essential Algorithms</div>
+        <ul style="margin-left: 1.2rem;">
+          <li>Sorting: Bubble, Selection, Insertion, Merge, Quick</li>
+          <li>Searching: Linear, Binary</li>
+          <li>Recursion & Backtracking</li>
+          <li>BFS, DFS (Graph traversals)</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">🎤 Interview Preparation</div>
+        <ul style="margin-left: 1.2rem;">
+          <li>Top 50+ coding interview problems</li>
+          <li>Time & Space Complexity analysis</li>
+          <li>Real FAANG interview questions</li>
+          <li>Mock interview strategies</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ========== MODULE 5: REAL-WORLD APPLICATIONS ========== -->
+    <div class="section-title">🌍 Module 5: Where DSA is Used in Real Life</div>
+    <div class="grid-2">
+      <div class="info-card">
+        <div class="section-subtitle">🔍 Google Search</div>
+        <p>Uses advanced data structures (inverted indexes, tries) and PageRank algorithm to show relevant results in milliseconds.</p>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">🗺️ GPS Navigation</div>
+        <p>Dijkstra's shortest path algorithm (graph data structure) finds the fastest route between locations.</p>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">📱 Social Media Feeds</div>
+        <p>Graph algorithms determine friend suggestions, and priority queues rank posts in your feed.</p>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">💳 Banking Systems</div>
+        <p>Hash tables enable instant balance lookup. Queues process thousands of transactions per second.</p>
+      </div>
+    </div>
+
+    <!-- ========== MODULE 6: EFFICIENCY MATTERS ========== -->
+    <div class="section-title">⏱️ Module 6: Why Efficiency Matters (Time & Space)</div>
+    <div class="info-card">
+      <p>Two algorithms can solve the same problem but have drastically different performance. DSA teaches you to measure and optimize:</p>
+      <div class="visual-box">
+        <strong>Problem: Find a phone number in a contact list of 1 million names</strong><br>
+        ❌ Linear Search (check each name): Up to 1,000,000 steps → 1 second<br>
+        ✅ Binary Search (with sorted list): Only ~20 steps → 0.00002 seconds
+      </div>
+      <div class="code-block">
+        <pre>// Inefficient (O(n²) - Bubble Sort for 1M items: 500 billion operations)
+for(i=0; i<n; i++)
+  for(j=0; j<n-1; j++)
+    if(arr[j] > arr[j+1]) swap();
+
+// Efficient (O(n log n) - Merge Sort for 1M items: ~20 million operations)
+// That's 25,000x faster!</pre>
+      </div>
+      <div class="output">💡 Good developers write code that works. Great developers write code that works FAST and uses LESS memory.</div>
+    </div>
+
+    <!-- ========== MODULE 7: INTERVIEW QUESTIONS ========== -->
+    <div class="section-title">🎤 Module 7: Common DSA Interview Questions (With Answers)</div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q1: What is the difference between an Array and a Linked List?</strong></p>
+      <p><strong>Answer:</strong> Array stores elements in contiguous memory (fast random access, slow insert/delete). Linked List stores nodes connected by pointers (slow random access, fast insert/delete).</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q2: Explain Big O notation with an example.</strong></p>
+      <p><strong>Answer:</strong> Big O describes algorithm complexity. O(1) = constant (array access). O(n) = linear (loop). O(n²) = quadratic (nested loops). Example: Finding an element in unsorted array = O(n).</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q3: What is the difference between Stack and Queue?</strong></p>
+      <p><strong>Answer:</strong> Stack = LIFO (Last In First Out) like a pile of plates. Queue = FIFO (First In First Out) like a ticket counter line.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q4: What is recursion? Give an example.</strong></p>
+      <p><strong>Answer:</strong> Recursion is when a function calls itself. Example: Factorial(n) = n * factorial(n-1) with base case factorial(0)=1.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q5: Which sorting algorithm is fastest? When to use which?</strong></p>
+      <p><strong>Answer:</strong> Quick Sort is fastest on average. Merge Sort is stable and guarantees O(n log n). Use Insertion Sort for small datasets. Use Heap Sort when memory is limited.</p>
+    </div>
+
+    <!-- ========== MODULE 8: HOW TO MASTER DSA ========== -->
+    <div class="section-title">📈 Module 8: Roadmap to Master DSA (Practical Steps)</div>
+    <div class="grid-2">
+      <div class="info-card">
+        <div class="section-subtitle">📖 Phase 1: Learn Concepts</div>
+        <p>Understand each data structure (arrays, linked lists, stacks, queues, trees, graphs) and algorithm (sorting, searching, recursion) with visualizations.</p>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">💻 Phase 2: Implement from Scratch</div>
+        <p>Code every data structure manually. Don't rely on libraries initially. Understand memory allocation and pointer logic.</p>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">🎯 Phase 3: Solve Problems</div>
+        <p>Practice on LeetCode, HackerRank, CodeChef. Start with easy problems, then medium, then hard. Consistency is key.</p>
+      </div>
+      <div class="info-card">
+        <div class="section-subtitle">🎤 Phase 4: Mock Interviews</div>
+        <p>Practice explaining your thought process out loud. Time yourself. Review optimal solutions after each problem.</p>
+      </div>
+    </div>
+
+    <!-- ========== MOTIVATIONAL VISUAL ========== -->
+    <div class="visual-box" style="background: #eaf4e8; margin: 1.5rem 0;">
+      <p style="font-size: 1.2rem; font-weight: 600;">🔥 "DSA is not about memorizing code — it's about training your brain to think algorithmically." 🔥</p>
+      <p style="margin-top: 0.5rem;">Every expert was once a beginner. Consistent practice transforms confusion into clarity.</p>
+    </div>
+
+    <!-- ========== SUMMARY ========== -->
+    <hr>
+    <div class="info-card" style="background: #fdfaf5;">
+      <div class="section-title" style="border-left-color: #e76f51; margin-top: 0;">📌 Course Summary & Key Takeaways</div>
+      <ul style="margin-left: 1.5rem;">
+        <li>✔️ <strong>Data</strong> = Raw facts (meaningless until processed)</li>
+        <li>✔️ <strong>Data Structure</strong> = Organized storage for efficient access</li>
+        <li>✔️ <strong>Algorithm</strong> = Step-by-step problem-solving recipe</li>
+        <li>✔️ <strong>DSA</strong> = Foundation of efficient programming & problem-solving</li>
+        <li>✔️ <strong>Why DSA?</strong> → Crack interviews, write faster code, use less memory, build complex systems</li>
+        <li>✔️ <strong>Course covers:</strong> Arrays, Linked Lists, Stacks, Queues, Trees, Graphs, Sorting, Searching, Recursion, Interview problems, and more</li>
+      </ul>
+      <div style="margin-top: 1.2rem; background: white; border-radius: 1rem; padding: 0.8rem;">
+        <p>🎯 <strong>Interview Tip:</strong> Always explain time & space complexity of your solution. Interviewers want to see if you can analyze and optimize code, not just write it.</p>
+      </div>
+    </div>
+
+    <!-- ========== NEXT STEPS ========== -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.2rem; background: #eef2fa; border-radius: 2rem;">
+      <p style="font-weight: 600;">🔜 <strong>Next Video:</strong> Complete DSA Roadmap — Your 6-month plan to master Data Structures & Algorithms from zero to interview-ready.</p>
+      <p style="margin-top: 0.6rem;">📌 Subscribe, like, and share this playlist to become a DSA Champion. Let's build efficient problem solvers! 🚀</p>
+    </div>
+  </div>
+  <footer>
+    © Telugu WebTech DSA Mastery Course | Practical, Visual, Interview-Focused | Prerequisites: Java Basics (Variables, Loops, Conditionals, Arrays, Methods)
+  </footer>
+</div>
+</body>
+</html>
