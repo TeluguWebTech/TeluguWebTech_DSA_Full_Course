@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Array Basics | Data Structure Tutorial | Java DSA Course</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #f0f7fc 0%, #e9f0f5 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2f3f;
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: #ffffffdd;
+      backdrop-filter: blur(0px);
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+    .hero {
+      background: linear-gradient(105deg, #0a2b38 0%, #1a5a7a 100%);
+      padding: 2rem 2rem;
+      color: white;
+      border-bottom: 4px solid #f4a261;
+    }
+    .hero h1 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(120deg, #fff, #ffd6a5);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    .hero-badge {
+      background: #f4a261;
+      color: #1a2f3f;
+      font-weight: 600;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 0.75rem;
+    }
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      opacity: 0.92;
+      max-width: 85%;
+    }
+    .content {
+      padding: 2rem 2rem 2.5rem 2rem;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 1.5rem 0 1rem 0;
+      border-left: 6px solid #f4a261;
+      padding-left: 1rem;
+      color: #0c3b4f;
+    }
+    .section-subtitle {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 1.2rem 0 0.8rem 0;
+      color: #2c5a6e;
+    }
+    .info-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+      border: 1px solid #e9f0f5;
+    }
+    .code-block {
+      background: #0e2a36;
+      border-radius: 1.2rem;
+      padding: 1rem 1.5rem;
+      margin: 1.2rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #e2f0fa;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    }
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .inline-code {
+      background: #eef2f7;
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+      font-family: monospace;
+      font-weight: 500;
+      color: #c4450c;
+      font-size: 0.9rem;
+    }
+    .node-visual {
+      background: #fef7e8;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      font-family: monospace;
+      font-size: 1rem;
+    }
+    .output {
+      background: #1e2f3a;
+      color: #bbe1ff;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 0.7rem 1.2rem;
+      border-radius: 14px;
+      margin-top: 0.8rem;
+    }
+    hr {
+      margin: 2rem 0;
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, #f4a261, #cfe3ef);
+    }
+    .interview-box {
+      background: #fff6e8;
+      padding: 1.2rem;
+      border-radius: 1.2rem;
+      margin-top: 1.5rem;
+      border-left: 6px solid #f4a261;
+    }
+    .step-box {
+      background: #eef2fa;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1rem;
+      margin: 0.8rem 0;
+    }
+    .complexity-badge {
+      background: #fef3e4;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-weight: 500;
+      margin: 1rem 0;
+      display: inline-block;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #d4e2ec;
+      color: #3f6b84;
+    }
+    @media (max-width: 700px) {
+      .hero p { max-width: 100%; }
+      .content { padding: 1.2rem; }
+      .section-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📊 Array Basics | Data Structure Tutorial</h1>
+    <div class="hero-badge">🎯 DSA Course | Telugu WebTech</div>
+    <p>Complete guide to Array data structure: What is an Array? Continuous memory, indexing concept, static vs dynamic arrays, memory layout, time complexity of access, and Java implementation.</p>
+  </div>
+
+  <div class="content">
+    <!-- What is an Array -->
+    <div class="section-title">📌 What is an Array?</div>
+    <div class="info-card">
+      <p><strong>Array</strong> is a data structure that stores multiple elements (collection of elements) at <strong>continuous memory locations</strong>. Elements are stored side by side in memory with no gaps.</p>
+      <div class="node-visual">
+        Memory: [10] [20] [30] [40] [50] → contiguous (no gaps)
+      </div>
+      <ul style="margin-left: 1.5rem;">
+        <li>✅ Stores homogeneous data (same data type)</li>
+        <li>✅ Fixed size (static array)</li>
+        <li>✅ Random access using index</li>
+      </ul>
+    </div>
+
+    <!-- Indexing Concept -->
+    <div class="section-title">🔢 Indexing Concept</div>
+    <div class="info-card">
+      <p><strong>Indexing</strong> assigns a unique ID (index) to each element. <strong>Array indexing always starts from 0</strong> (base index = 0).</p>
+      <div class="node-visual">
+        Index:    0     1     2     3     4<br>
+        Value:   10    20    30    40    50
+      </div>
+      <div class="step-box">
+        💡 <strong>Interview Tip:</strong> Base index is 0. Last index = length - 1.
+      </div>
+    </div>
+
+    <!-- Static vs Dynamic Arrays -->
+    <div class="section-title">⚖️ Static vs Dynamic Arrays</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>Static Array:</strong> Fixed size, specified at creation time. Cannot grow or shrink.</li>
+        <li><strong>Dynamic Array:</strong> Size can grow/shrink at runtime (e.g., ArrayList in Java).</li>
+      </ul>
+    </div>
+
+    <!-- Indexing & Memory Layout -->
+    <div class="section-title">🏗️ Indexing & Memory Layout</div>
+    <div class="info-card">
+      <div class="node-visual">
+        Index:  0   1   2   3   4<br>
+        Arr:   10  20  30  40  50<br>
+        Memory: [0x100] [0x104] [0x108] [0x10C] [0x110] (contiguous)
+      </div>
+      <ul style="margin-left: 1.5rem;">
+        <li>First element index = 0</li>
+        <li>Second element index = 1</li>
+        <li>Index increments by 1 for each subsequent element</li>
+        <li>Memory layout is <strong>continuous</strong></li>
+      </ul>
+    </div>
+
+    <!-- Time Complexity of Access -->
+    <div class="section-title">⏱️ Time Complexity of Access</div>
+    <div class="info-card">
+      <p><strong>O(1) — Constant Time</strong> - The biggest advantage of arrays!</p>
+      <ul style="margin-left: 1.5rem;">
+        <li>Access any element directly using its index</li>
+        <li>No traversal needed</li>
+        <li>Same time whether array has 10 elements or 10 million elements</li>
+      </ul>
+      <div class="complexity-badge">📌 Access Time Complexity: O(1) - Best possible!</div>
+    </div>
+
+    <!-- Java Implementation -->
+    <div class="section-title">💻 Java Implementation</div>
+    <div class="info-card">
+      <div class="code-block">
+        <pre>public class ArrayBasics {
+    public static void main(String[] args) {
+        // Method 1: Declaration + Initialization (separate lines)
+        int[] numbers;
+        numbers = new int[5];
+        
+        // Method 2: Declaration + Initialization (single line)
+        int[] numbers2 = new int[5];
+        
+        // Inserting values
+        numbers2[0] = 10;
+        numbers2[1] = 20;
+        numbers2[2] = 30;
+        numbers2[3] = 40;
+        numbers2[4] = 50;
+        
+        // Accessing elements
+        System.out.println("Element at index 2 is: " + numbers2[2]);  // 30
+        System.out.println("Element at index 4 is: " + numbers2[4]);  // 50
+        
+        // Method 3: Declaration + Initialization + Values (one line)
+        int[] numbers3 = {10, 20, 30, 40, 50};
+        System.out.println("Element at index 4 is: " + numbers3[4]);  // 50
+    }
+}</pre>
+      </div>
+      <div class="output">
+        🧪 Output:<br>
+        Element at index 2 is: 30<br>
+        Element at index 4 is: 50<br>
+        Element at index 4 is: 50
+      </div>
+    </div>
+
+    <!-- Declaration & Initialization Methods -->
+    <div class="section-subtitle">🔧 Three Ways to Create Arrays</div>
+    <div class="info-card">
+      <div class="code-block">
+        <pre>// Way 1: Declaration then initialization
+int[] arr1;           // declaration
+arr1 = new int[5];    // initialization (size 5)
+
+// Way 2: Declaration + initialization in one line
+int[] arr2 = new int[5];
+
+// Way 3: Direct initialization with values (size auto-detected)
+int[] arr3 = {10, 20, 30, 40, 50};  // Java auto-detects size = 5</pre>
+      </div>
+    </div>
+
+    <!-- Important Note: Index vs Length -->
+    <div class="section-title">⚠️ Important: Index vs Length</div>
+    <div class="info-card">
+      <div class="node-visual">
+        Array of length 5: indices 0, 1, 2, 3, 4<br>
+        Length = 5, Last index = length - 1 = 4
+      </div>
+      <div class="step-box">
+        💡 <strong>Remember:</strong> Length starts from 1, Index starts from 0. Beginners often get confused about this!
+      </div>
+    </div>
+
+    <!-- ========== INTERVIEW QUESTIONS & ANSWERS ========== -->
+    <div class="section-title">🎤 Interview Questions & Answers</div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q1: Where does array indexing start in most programming languages?</strong></p>
+      <p><strong>Answer:</strong> Array indexing starts from <strong>0</strong> (zero-based indexing). The first element is at index 0, second at index 1, and so on. The last element is at index (length - 1).</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q2: What is the difference between static and dynamic arrays?</strong></p>
+      <p><strong>Answer:</strong> Static arrays have a fixed size determined at creation time and cannot change. Dynamic arrays can grow or shrink at runtime (e.g., ArrayList in Java).</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q3: What is the time complexity to access an element in an array?</strong></p>
+      <p><strong>Answer:</strong> O(1) - constant time. Because arrays use contiguous memory and indexing, we can directly access any element using its index without traversal.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q4: What is contiguous memory allocation?</strong></p>
+      <p><strong>Answer:</strong> Contiguous memory allocation means elements are stored in adjacent/sequential memory locations with no gaps between them. Arrays use contiguous memory, which enables O(1) access.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q5: What is the base index of an array?</strong></p>
+      <p><strong>Answer:</strong> The base index is the index of the first element, which is always <strong>0</strong> in zero-based indexing languages like Java, C++, Python, and JavaScript.</p>
+    </div>
+
+    <div class="interview-box">
+      <p><strong>❓ Q6: Can we change the size of a static array after creation?</strong></p>
+      <p><strong>Answer:</strong> No, static arrays have fixed size. To change size, we must create a new array and copy elements (which is what dynamic arrays do internally).</p>
+    </div>
+
+    <!-- Key Takeaways -->
+    <hr>
+    <div class="info-card" style="background: #fdfaf5;">
+      <div class="section-title" style="border-left-color: #e76f51;">📌 Summary & Key Takeaways</div>
+      <ul style="margin-left: 1.5rem;">
+        <li>✔️ <strong>Array</strong> = Collection of elements stored in <strong>continuous memory</strong></li>
+        <li>✔️ <strong>Indexing starts from 0</strong> (base index = 0)</li>
+        <li>✔️ <strong>Static array</strong> = fixed size; <strong>Dynamic array</strong> = growable size</li>
+        <li>✔️ <strong>Memory layout</strong> = continuous (elements stored side by side)</li>
+        <li>✔️ <strong>Access time complexity</strong> = O(1) - constant time</li>
+        <li>✔️ <strong>Last index</strong> = length - 1</li>
+      </ul>
+      <div style="margin-top: 1rem; background: white; border-radius: 1rem; padding: 0.8rem;">
+        <p>🎯 <strong>Next Video:</strong> Array Insertion — Insert at beginning, end, and any position.</p>
+      </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1rem; background: #eaf2f5; border-radius: 2rem;">
+      <p style="font-weight: 500;">🔜 <strong>Next Video:</strong> Array Insertion — Insert at beginning, end, and any position with code examples.</p>
+    </div>
+
+ 
+  </div>
+</div>
+</body>
+</html>
