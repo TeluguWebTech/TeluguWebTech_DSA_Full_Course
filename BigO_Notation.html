@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Time Complexity & Big-O Notation | DSA in Java | Telugu WebTech</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f5f9ff 0%, #eef2f8 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2f3f;
+      line-height: 1.55;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1350px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: linear-gradient(125deg, #0a2e3f 0%, #1b5a78 100%);
+      padding: 2rem 2.5rem;
+      color: white;
+      border-bottom: 5px solid #f4a261;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-badge {
+      background: #f4a261;
+      color: #1a2f3f;
+      font-weight: 700;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    .channel-name {
+      background: rgba(244, 162, 97, 0.2);
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      margin-top: 0.8rem;
+    }
+
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1rem;
+      opacity: 0.92;
+      max-width: 90%;
+    }
+
+    .content {
+      padding: 2rem 2.5rem 2.8rem;
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 2rem 0 1rem 0;
+      border-left: 6px solid #f4a261;
+      padding-left: 1rem;
+      color: #0c3b4f;
+    }
+
+    .section-subtitle {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin: 1.2rem 0 0.8rem 0;
+      color: #2c5a6e;
+    }
+
+    .info-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e6edf4;
+      transition: transform 0.2s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
+    }
+
+    .visual-box {
+      background: #fef9f0;
+      border-radius: 1.2rem;
+      padding: 1.2rem;
+      margin: 1rem 0;
+      text-align: center;
+      font-family: 'Fira Code', monospace;
+      border: 1px dashed #f4a261;
+    }
+
+    .code-block {
+      background: #0e2a36;
+      border-radius: 1.2rem;
+      padding: 1rem 1.5rem;
+      margin: 1.2rem 0;
+      overflow-x: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: #e2f0fa;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+    }
+
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .output {
+      background: #1e2f3a;
+      color: #bbe1ff;
+      font-family: 'Fira Code', monospace;
+      padding: 0.7rem 1.2rem;
+      border-radius: 14px;
+      margin-top: 0.8rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin: 1.2rem 0;
+    }
+
+    .complexity-card {
+      background: #f8fafc;
+      border-radius: 1rem;
+      padding: 1rem;
+      border-left: 4px solid #f4a261;
+    }
+
+    .complexity-card h4 {
+      font-size: 1.2rem;
+      color: #c4450c;
+      margin-bottom: 0.5rem;
+    }
+
+    .interview-box {
+      background: #fff6e8;
+      padding: 1.2rem;
+      border-radius: 1.2rem;
+      margin-top: 1.2rem;
+      border-left: 6px solid #f4a261;
+    }
+
+    .practice-task {
+      background: #eaf4e8;
+      padding: 1rem;
+      border-radius: 1rem;
+      margin: 0.8rem 0;
+    }
+
+    hr {
+      margin: 2rem 0;
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, #f4a261, #cfe3ef);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #d4e2ec;
+      color: #3f6b84;
+    }
+
+    .big-o-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+    .big-o-table th, .big-o-table td {
+      border: 1px solid #d4e2ec;
+      padding: 0.8rem;
+      text-align: left;
+    }
+    .big-o-table th {
+      background: #eef2fa;
+      font-weight: 700;
+    }
+
+    @media (max-width: 700px) {
+      .hero p { max-width: 100%; }
+      .content { padding: 1.2rem; }
+      .section-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>⏱️ Time Complexity & Big-O Notation</h1>
+    <div class="hero-badge">🎯 DSA in Java Series | Complete Guide</div>
+    <div class="channel-name">📺 Telugu WebTech</div>
+    <p>Before you start solving problems, there is one topic you must understand — because without this, you will write solutions that work but fail in interviews. That topic is <strong>Time Complexity and Big-O Notation</strong>. Let's understand it in the simplest way.</p>
+  </div>
+
+  <div class="content">
+    <!-- ========== INTRODUCTION ========== -->
+    <div class="section-title">📌 Welcome to Telugu WebTech - DSA in Java Series</div>
+    <div class="info-card">
+      <p>Here, we will understand what <strong>time complexity</strong> means, why <strong>Big-O</strong> is important, and how to calculate it for common loops and code patterns. By the end of this video, you will be able to analyze most beginner-level Java solutions easily.</p>
+      <div class="visual-box">
+        💡 <strong>Key Question:</strong> If your input size (n) becomes 10 times bigger, how much slower does your program become? That's exactly what time complexity tells us!
+      </div>
+    </div>
+
+    <!-- ========== WHAT IS TIME COMPLEXITY ========== -->
+    <div class="section-title">⏱️ 1. What is Time Complexity?</div>
+    <div class="info-card">
+      <p><strong>Time complexity</strong> means <strong>how fast your code runs as the input size grows</strong>. Let's say your input size is <strong>n</strong>. If n becomes 10 times bigger, how much slower would your program become? That is exactly what time complexity tells us.</p>
+      <div class="output">⚠️ Important: Time complexity is NOT measured in seconds because different systems run at different speeds. Instead, we measure the <strong>number of operations performed</strong>.</div>
+    </div>
+
+    <!-- ========== WHAT IS BIG-O NOTATION ========== -->
+    <div class="section-title">📐 2. What is Big-O Notation?</div>
+    <div class="info-card">
+      <p><strong>Big-O notation</strong> is a way to represent the <strong>worst-case performance</strong> of an algorithm. It tells us how the time grows when <strong>n increases</strong>.</p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+        <li>Big-O focuses on the <strong>growth rate</strong>, not on exact values.</li>
+        <li>For example: if you have <strong>3n + 5</strong> operations, we call it <strong>O(n)</strong> because constants don't matter for large inputs.</li>
+      </ul>
+      <div class="visual-box">
+        📊 <strong>Example:</strong> 5n + 1000 → Still O(n)<br>
+        📊 2n² + 3n + 10 → O(n²) (n² dominates)
+      </div>
+    </div>
+
+    <!-- ========== COMMON BIG-O COMPLEXITIES ========== -->
+    <div class="section-title">📊 3. Common Big-O Complexities (With Examples)</div>
+    
+    <table class="big-o-table">
+      <thead>
+        <tr><th>Complexity</th><th>Name</th><th>Description</th><th>Example</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>O(1)</td><td>Constant Time</td><td>Time does NOT change with input size</td><td>Accessing array element: <code>arr[5]</code></td></tr>
+        <tr><td>O(log n)</td><td>Logarithmic Time</td><td>Time grows slowly — halves the input each time</td><td>Binary Search</td></tr>
+        <tr><td>O(n)</td><td>Linear Time</td><td>Time grows linearly with input size</td><td>Looping through an array of size n</td></tr>
+        <tr><td>O(n log n)</td><td>Linearithmic Time</td><td>Faster than quadratic, common in efficient sorts</td><td>Merge Sort, Quick Sort (average)</td></tr>
+        <tr><td>O(n²)</td><td>Quadratic Time</td><td>Time grows exponentially — nested loops</td><td>Bubble Sort, nested loops</td></tr>
+        <tr><td>O(2ⁿ)</td><td>Exponential Time</td><td>Very slow — used in some recursive problems</td><td>Recursive Fibonacci (naive)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid-2">
+      <div class="complexity-card">
+        <h4>🔹 O(1) - Constant Time</h4>
+        <p>No matter if the array size is 10 or 10 million, it takes the same time.</p>
+        <div class="code-block" style="margin-top: 0.5rem;">
+          <pre>int x = arr[5];  // O(1) - direct access</pre>
+        </div>
+      </div>
+      <div class="complexity-card">
+        <h4>🔹 O(n) - Linear Time</h4>
+        <p>If n doubles, time also doubles.</p>
+        <div class="code-block" style="margin-top: 0.5rem;">
+          <pre>for(int i = 0; i < n; i++) {
+    System.out.println(i);
+}</pre>
+        </div>
+      </div>
+      <div class="complexity-card">
+        <h4>🔹 O(n²) - Quadratic Time</h4>
+        <p>Nested loops — if n=100, operations ≈ 10,000</p>
+        <div class="code-block" style="margin-top: 0.5rem;">
+          <pre>for(int i = 0; i < n; i++) {
+    for(int j = 0; j < n; j++) {
+        System.out.println(i + "," + j);
+    }
+}</pre>
+        </div>
+      </div>
+      <div class="complexity-card">
+        <h4>🔹 O(log n) - Logarithmic Time</h4>
+        <p>Binary Search: if n = 1 million, log₂(1M) ≈ 20 steps only!</p>
+        <div class="code-block" style="margin-top: 0.5rem;">
+          <pre>// Binary search on sorted array
+// Each step halves the search space</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== RULES TO CALCULATE BIG-O ========== -->
+    <div class="section-title">📏 4. Simple Rules to Calculate Big-O</div>
+    <div class="info-card">
+      <div class="section-subtitle">🎯 Rule 1: Ignore Constants</div>
+      <div class="code-block">
+        <pre>// Two separate loops (2n operations)
+for(int i = 0; i < n; i++) {
+    System.out.println(i);
+}
+for(int j = 0; j < n; j++) {
+    System.out.println(j);
+}
+// Complexity: O(2n) → O(n) (ignore constant 2)</pre>
+      </div>
+
+      <div class="section-subtitle">🎯 Rule 2: Nested Loops Multiply</div>
+      <div class="code-block">
+        <pre>for(int i = 0; i < n; i++) {
+    for(int j = 0; j < n; j++) {
+        System.out.println(i + "," + j);
+    }
+}
+// Complexity: O(n × n) = O(n²)</pre>
+      </div>
+
+      <div class="section-subtitle">🎯 Rule 3: Different Loops Add</div>
+      <div class="code-block">
+        <pre>for(int i = 0; i < n; i++) { }  // O(n)
+for(int j = 0; j < m; j++) { }  // O(m)
+// Complexity: O(n + m) (if n and m are different)</pre>
+      </div>
+
+      <div class="section-subtitle">🎯 Rule 4: Drop Smaller Terms</div>
+      <div class="visual-box">
+        O(n² + n) → O(n²) because n² dominates<br>
+        O(2ⁿ + n²) → O(2ⁿ) exponential dominates
+      </div>
+    </div>
+
+    <!-- ========== PRACTICAL EXAMPLES ========== -->
+    <div class="section-title">💻 5. Practical Examples</div>
+    
+    <div class="info-card">
+      <div class="section-subtitle">Example 1: Single Loop</div>
+      <div class="code-block">
+        <pre>for(int i = 0; i < n; i++) {
+    System.out.println("Hello");
+}
+// Complexity: O(n)</pre>
+      </div>
+      
+      <div class="section-subtitle">Example 2: Nested Loops</div>
+      <div class="code-block">
+        <pre>for(int i = 0; i < n; i++) {
+    for(int j = 0; j < n; j++) {
+        System.out.println(i);
+    }
+}
+// Complexity: O(n²)</pre>
+      </div>
+      
+      <div class="section-subtitle">Example 3: Logarithmic (i doubles each time)</div>
+      <div class="code-block">
+        <pre>int i = 1;
+while(i < n) {
+    System.out.println(i);
+    i = i * 2;  // i doubles each time
+}
+// Complexity: O(log n) because i grows exponentially</pre>
+      </div>
+    </div>
+
+    <!-- ========== SPACE COMPLEXITY ========== -->
+    <div class="section-title">💾 6. Space Complexity (Extra Memory)</div>
+    <div class="info-card">
+      <p><strong>Space complexity</strong> means the <strong>extra memory</strong> used by your program. When writing code for large applications, both time and space complexity are crucial.</p>
+      
+      <div class="code-block">
+        <pre>// Example 1: O(n) space - array of size n
+int[] arr = new int[n];  // O(n) extra space
+
+// Example 2: O(1) space - fixed number of variables
+int a = 10;
+int b = 20;
+int c = a + b;  // O(1) - constant space</pre>
+      </div>
+      <div class="output">💡 Good developers optimize BOTH time AND space. Sometimes we trade space for faster time (caching, memoization).</div>
+    </div>
+
+    <!-- ========== WHY INTERVIEWERS CARE ========== -->
+    <div class="section-title">🎤 7. Why Interviewers Care About Big-O</div>
+    <div class="interview-box">
+      <p><strong>In interviews, it's not enough that your code works.</strong> Interviewers want to know if the solution is <strong>optimized</strong> or not.</p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.8rem;">
+        <li>❌ Brute force solution might be <strong>O(n²)</strong></li>
+        <li>✅ Optimized solution might be <strong>O(n)</strong> or <strong>O(log n)</strong></li>
+        <li>🏢 Companies like Google, Amazon, Microsoft always prefer the <strong>best possible complexity</strong></li>
+      </ul>
+      <div class="visual-box" style="margin-top: 0.8rem;">
+        📢 <strong>Telugu WebTech Tip:</strong> Always analyze your solution's complexity before coding. Interviewers love candidates who can discuss trade-offs!
+      </div>
+    </div>
+
+    <!-- ========== INTERVIEW QUESTIONS & ANSWERS (NEW SECTION) ========== -->
+    <div class="section-title">🎯 8. Interview Questions & Answers on Time Complexity & Big-O</div>
+    <div class="info-card">
+      <div class="interview-box" style="margin-top: 0;">
+        <p><strong>❓ Q1: What is Big-O notation? Why is it important?</strong></p>
+        <p><strong>Answer:</strong> Big-O notation describes the <strong>worst-case time complexity</strong> of an algorithm. It tells us how the runtime grows as the input size (n) increases. It's important because it helps us compare algorithm efficiency independently of hardware. Companies use Big-O to evaluate if a solution will scale for large inputs (like millions of users).</p>
+      </div>
+
+      <div class="interview-box">
+        <p><strong>❓ Q2: What is the time complexity of accessing an element in an array?</strong></p>
+        <p><strong>Answer:</strong> O(1) — <strong>constant time</strong>. No matter how large the array is, accessing an element by index (like <code>arr[5]</code>) takes the same amount of time.</p>
+        <div class="code-block"><pre>int element = arr[1000];  // O(1) even for million-sized array</pre></div>
+      </div>
+
+      <div class="interview-box">
+        <p><strong>❓ Q3: What is the complexity of a simple for loop from 1 to n?</strong></p>
+        <p><strong>Answer:</strong> O(n) — <strong>linear time</strong>. If n = 1000, loop runs 1000 times. If n = 2000, loop runs 2000 times. Time doubles when n doubles.</p>
+      </div>
+
+      <div class="interview-box">
+        <p><strong>❓ Q4: What is the time complexity of nested loops (both running n times)?</strong></p>
+        <p><strong>Answer:</strong> O(n²) — <strong>quadratic time</strong>. For n = 1000, operations = 1,000,000. For n = 2000, operations = 4,000,000 (4x slower). This is common in bubble sort and brute-force algorithms.</p>
+      </div>
+
+      <div class="interview-box">
+        <p><strong>❓ Q5: Why is O(log n) considered very efficient?</strong></p>
+        <p><strong>Answer:</strong> Because the number of operations grows very slowly. In binary search, each step <strong>halves</strong> the search space. For n = 1 million, log₂(1,000,000) ≈ only <strong>20 operations</strong>. Increasing n to 2 million only adds 1 more operation!</p>
+        <div class="visual-box">
+          📊 Example: Binary search on sorted array of size 1 million → ~20 comparisons.<br>
+          Linear search on same array → up to 1 million comparisons.
+        </div>
+      </div>
+
+      <div class="interview-box">
+        <p><strong>❓ Q6: What is the difference between Time Complexity and Space Complexity?</strong></p>
+        <p><strong>Answer:</strong> Time complexity measures <strong>how fast</strong> an algorithm runs (number of operations). Space complexity measures <strong>how much extra memory</strong> an algorithm uses. Sometimes we trade space for time (e.g., caching, memoization) to make algorithms faster.</p>
+      </div>
+
+      <div class="interview-box">
+        <p><strong>❓ Q7: What is the complexity of this code?</strong></p>
+        <div class="code-block"><pre>int sum = 0;
+for(int i = 0; i < n; i++) {
+    for(int j = 0; j < n; j++) {
+        sum += i * j;
+    }
+}
+for(int k = 0; k < n; k++) {
+    System.out.println(k);
+}</pre></div>
+        <p><strong>Answer:</strong> O(n² + n) → <strong>O(n²)</strong> (drop smaller term n). The nested loop dominates the runtime.</p>
+      </div>
+
+      <div class="interview-box">
+        <p><strong>❓ Q8: Can an algorithm have O(1) time complexity? Give an example.</strong></p>
+        <p><strong>Answer:</strong> Yes. Examples include: accessing array element by index, inserting at the end of a dynamic array (amortized), hash table lookup (average case), and mathematical formulas like <code>sum = n * (n+1) / 2</code>.</p>
+      </div>
+
+      <div class="interview-box">
+        <p><strong>❓ Q9: What is the complexity of recursive Fibonacci (naive implementation)?</strong></p>
+        <div class="code-block"><pre>int fib(int n) {
+    if(n <= 1) return n;
+    return fib(n-1) + fib(n-2);
+}</pre></div>
+        <p><strong>Answer:</strong> O(2ⁿ) — <strong>exponential time</strong>. Very slow for n > 40. Optimized version (DP) gives O(n). This is why interviewers ask for optimization.</p>
+      </div>
+
+      <div class="interview-box">
+        <p><strong>❓ Q10: How would you optimize an O(n²) solution to O(n log n) or O(n)?</strong></p>
+        <p><strong>Answer:</strong> Common techniques include:
+          <ul style="margin-left: 1.5rem; margin-top: 0.4rem;">
+            <li>Using sorting + two pointers instead of nested loops</li>
+            <li>Using HashMaps for O(1) lookups</li>
+            <li>Using Binary Search instead of linear search</li>
+            <li>Using Divide and Conquer (Merge Sort, Quick Sort)</li>
+          </ul>
+          Example: Finding a pair with given sum — brute force O(n²), using HashMap O(n).
+        </p>
+      </div>
+    </div>
+
+    <!-- ========== PRACTICE TASKS ========== -->
+    <div class="section-title">📝 9. Practice Tasks (Try on Your Own)</div>
+    <div class="info-card">
+      <p>Try these <strong>four tasks</strong> on your own before watching the next video. Once you analyze them and practice them, you will be able to understand code complexity and how to optimize it.</p>
+      
+      <div class="practice-task">
+        <strong>🔹 Task 1:</strong> Find time complexity of a loop that runs from <strong>1 to n</strong> (increment by 1)
+      </div>
+      <div class="practice-task">
+        <strong>🔹 Task 2:</strong> Find complexity of <strong>nested loops</strong> (i from 1 to n, j from 1 to i)
+      </div>
+      <div class="practice-task">
+        <strong>🔹 Task 3:</strong> Find complexity of <strong>Binary Search</strong> (searching in sorted array)
+      </div>
+      <div class="practice-task">
+        <strong>🔹 Task 4:</strong> Find complexity of a loop that <strong>doubles each time</strong> (i = i * 2)
+      </div>
+      
+      <div class="output" style="margin-top: 1rem;">
+        💡 <strong>Hint for Task 4:</strong> When i doubles (1,2,4,8,16...), the loop runs O(log n) times.
+      </div>
+    </div>
+
+    <!-- ========== SUMMARY ========== -->
+    <hr>
+    <div class="info-card" style="background: #fdfaf5;">
+      <div class="section-title" style="border-left-color: #e76f51; margin-top: 0;">📌 Summary: What We Learned</div>
+      <ul style="margin-left: 1.5rem;">
+        <li>✅ <strong>Time Complexity</strong> = How execution time grows with input size</li>
+        <li>✅ <strong>Big-O Notation</strong> = Worst-case performance representation</li>
+        <li>✅ <strong>O(1)</strong> → Constant (array access)</li>
+        <li>✅ <strong>O(log n)</strong> → Logarithmic (Binary Search)</li>
+        <li>✅ <strong>O(n)</strong> → Linear (single loop)</li>
+        <li>✅ <strong>O(n²)</strong> → Quadratic (nested loops)</li>
+        <li>✅ Rules: Ignore constants, multiply nested loops, add different loops, drop smaller terms</li>
+        <li>✅ <strong>Space Complexity</strong> = Extra memory used</li>
+        <li>✅ <strong>Interview questions</strong>: O(1), O(n), O(n²), O(log n) differences, optimization techniques</li>
+      </ul>
+      <div class="visual-box" style="margin-top: 1rem;">
+        🎯 <strong>Telugu WebTech:</strong> "If this video helped you understand Big-O, hit the like button, subscribe for the complete DSA in Java series, and comment below: <strong>Big-O done</strong>"
+      </div>
+    </div>
+
+    <!-- ========== NEXT VIDEO ========== -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1.2rem; background: #eef2fa; border-radius: 2rem;">
+      <p style="font-weight: 600;">🔜 <strong>Next Video (Telugu WebTech):</strong> Arrays in Java — Important patterns and interview-level problems</p>
+      <p style="margin-top: 0.6rem;">📌 Subscribe to <strong>Telugu WebTech</strong> for the complete DSA in Java series. Happy Coding! 🚀</p>
+    </div>
+  </div>
+  <footer>
+    © Telugu WebTech | DSA in Java Series | Time Complexity & Big-O Notation | Practice, Analyze, Optimize | Interview Q&A Included
+  </footer>
+</div>
+</body>
+</html>
