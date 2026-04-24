@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>DSA Tutorial: Array Insertion | Static Array Operations</title>
+  <!-- Google Fonts & simple reset -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f6f9fc 0%, #eef2f7 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2c3e;
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(0px);
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0,0,0,0.2);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+
+    /* header section */
+    .hero {
+      background: linear-gradient(135deg, #0b2b3b, #1a4c6e);
+      padding: 2rem 2rem 2rem 2rem;
+      color: white;
+      border-bottom: 4px solid #ffb74d;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(120deg, #fff, #ffe0b5);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .hero .badge {
+      background: #ffb74d;
+      color: #1a2c3e;
+      font-weight: 600;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 0.75rem;
+    }
+
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 80%;
+    }
+
+    /* main content */
+    .content {
+      padding: 2rem 2rem 2.5rem 2rem;
+    }
+
+    /* intro card */
+    .intro-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      border-left: 6px solid #ff8c42;
+      padding-left: 1rem;
+      color: #0f2b38;
+    }
+
+    .problem-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .problem-card {
+      background: #fef7e8;
+      border-radius: 1.2rem;
+      padding: 1.2rem 1.5rem;
+      flex: 1;
+      min-width: 200px;
+      border: 1px solid #ffe0b5;
+      transition: transform 0.2s;
+    }
+
+    .problem-card h3 {
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #c25d00;
+    }
+
+    /* code styling */
+    .code-block {
+      background: #0d2b3e;
+      border-radius: 1.2rem;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #e4f0fb;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .inline-code {
+      background: #eef2f5;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-family: monospace;
+      font-weight: 500;
+      color: #c4450c;
+    }
+
+    .time-complexity {
+      background: #e8f0fe;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1rem;
+      font-weight: 500;
+      margin: 1rem 0;
+      display: inline-block;
+    }
+
+    hr {
+      margin: 2rem 0;
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, #ffb74d, transparent);
+    }
+
+    .example-box {
+      background: #ffffffdd;
+      border-left: 5px solid #ff8c42;
+      padding: 1rem 1.5rem;
+      margin: 1.2rem 0;
+      border-radius: 1rem;
+    }
+
+    .output {
+      font-family: 'JetBrains Mono', monospace;
+      background: #1e2f3a;
+      color: #bbe1ff;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      margin-top: 0.8rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #dce5ec;
+      color: #5f7f9a;
+    }
+
+    @media (max-width: 680px) {
+      .hero p {
+        max-width: 100%;
+      }
+      .content {
+        padding: 1.5rem;
+      }
+      .section-title {
+        font-size: 1.5rem;
+      }
+      .problem-card h3 {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📌 Array Insertion · Static Arrays</h1>
+    <div class="badge">⚡ DSA Deep Dive | Telugu WebTech</div>
+    <p>Master array insertion in static arrays: beginning, end & any position. Learn logic, Java implementation, and time complexity with step-by-step examples.</p>
+  </div>
+
+  <div class="content">
+    <!-- Introduction & 3 Problems -->
+    <div class="intro-card">
+      <div class="section-title">🎯 Three Types of Insertion Problems</div>
+      <p>In a <strong>static array (fixed-size)</strong>, we cannot directly grow the array. Instead, we create a <strong>new array with size+1</strong> and shift elements. Understanding these three cases will boost your problem-solving & logic building.</p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <h3>🔹 1. Insert at Beginning</h3>
+          <p>Add a new element at index 0 → shift all existing elements right.</p>
+        </div>
+        <div class="problem-card">
+          <h3>🔹 2. Insert at End</h3>
+          <p>Add element at the last position (old length index).</p>
+        </div>
+        <div class="problem-card">
+          <h3>🔹 3. Insert at Any Index</h3>
+          <p>Insert at specific position (e.g., middle) after shifting elements to the right.</p>
+        </div>
+      </div>
+      <div class="time-complexity">⏱️ Overall time complexity for all cases: <strong>O(n)</strong> due to shifting/copying up to n elements.</div>
+    </div>
+
+    <!-- 1️⃣ Insertion at Beginning -->
+    <div>
+      <div class="section-title">📍 1. Insertion at the Beginning</div>
+      <p>We have an initial array <code class="inline-code">{10, 20, 30}</code> and we want to insert <strong>5</strong> at index 0. Steps:</p>
+      <ul style="margin: 0.8rem 0 0.8rem 1.8rem;">
+        <li>Create a new array of length = original length + 1.</li>
+        <li>Place the new value at newArr[0].</li>
+        <li>Copy all old elements into newArr starting from index 1.</li>
+      </ul>
+      <div class="code-block">
+        <pre>int[] arr = {10, 20, 30};
+int value = 5;
+
+int[] newArr = new int[arr.length + 1];   // size = 4
+newArr[0] = value;                        // insert at beginning
+
+for (int i = 0; i &lt; arr.length; i++) {
+    newArr[i + 1] = arr[i];              // shift existing elements
+}
+
+System.out.println(Arrays.toString(newArr));  // [5, 10, 20, 30]</pre>
+      </div>
+      <div class="example-box">
+        ✅ <strong>Output:</strong> <code>[5, 10, 20, 30]</code><br>
+        ⚡ <strong>Time complexity:</strong> O(1) for assignment + O(n) for copy → <strong>O(n)</strong>.
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- 2️⃣ Insertion at End -->
+    <div>
+      <div class="section-title">📍 2. Insertion at the End</div>
+      <p>Inserting a new element after the last existing element. The last index of new array = old array length (since zero‑based).</p>
+      <div class="code-block">
+        <pre>int[] arr = {10, 20, 30};
+int value = 5;
+
+int[] newArr = new int[arr.length + 1];
+
+// copy all elements to the same indices
+for (int i = 0; i &lt; arr.length; i++) {
+    newArr[i] = arr[i];
+}
+// insert at the last position
+newArr[arr.length] = value;
+
+System.out.println(Arrays.toString(newArr));  // [10, 20, 30, 5]</pre>
+      </div>
+      <div class="example-box">
+        📤 <strong>Output:</strong> <code>[10, 20, 30, 5]</code><br>
+        🔁 <strong>Complexity:</strong> O(n) – because we copy all n elements.
+      </div>
+    </div>
+
+    <hr>
+
+    <!-- 3️⃣ Insertion at Any Given Index (middle) -->
+    <div>
+      <div class="section-title">📍 3. Insertion at Any Index (e.g., Middle)</div>
+      <p>Insert <strong>5</strong> at index <strong>1</strong> (between 10 and 20). We split the copy into two parts: elements before index, then the new value, then the remaining elements shifted right.</p>
+      <div class="code-block">
+        <pre>int[] arr = {10, 20, 30};
+int value = 5;
+int index = 1;   // target position (0-based)
+
+int[] newArr = new int[arr.length + 1];
+
+// 1. copy elements before the insertion point
+for (int i = 0; i &lt; index; i++) {
+    newArr[i] = arr[i];
+}
+
+// 2. insert the new value
+newArr[index] = value;
+
+// 3. copy remaining elements (shift one position right)
+for (int i = index; i &lt; arr.length; i++) {
+    newArr[i + 1] = arr[i];
+}
+
+System.out.println(Arrays.toString(newArr));  // [10, 5, 20, 30]</pre>
+      </div>
+      <div class="example-box">
+        🧪 <strong>Result:</strong> <code>[10, 5, 20, 30]</code><br>
+        🧠 <strong>Generalization:</strong> Works for any valid index (0 to arr.length).
+      </div>
+
+      <!-- extra larger array example -->
+      <div class="section-title" style="font-size: 1.4rem; margin-top: 1rem;">📚 Example: Larger Array (size 4 → 5)</div>
+      <p>Insert <strong>5</strong> at index <strong>2</strong> (between 20 and 30) in <code>{10, 20, 30, 40}</code>.</p>
+      <div class="code-block">
+        <pre>int[] arr2 = {10, 20, 30, 40};
+int value2 = 5;
+int index2 = 2;
+
+int[] newArr2 = new int[arr2.length + 1];   // size 5
+
+// copy before index (0,1)
+for (int i = 0; i &lt; index2; i++) {
+    newArr2[i] = arr2[i];      // newArr2[0]=10, newArr2[1]=20
+}
+
+// place value
+newArr2[index2] = value2;      // newArr2[2] = 5
+
+// shift rest: old index2 -> new index3, old index3 -> new index4
+for (int i = index2; i &lt; arr2.length; i++) {
+    newArr2[i + 1] = arr2[i];  // newArr2[3]=30, newArr2[4]=40
+}
+
+System.out.println(Arrays.toString(newArr2));</pre>
+      </div>
+      <div class="output">💻 Output: <strong>[10, 20, 5, 30, 40]</strong></div>
+      <div class="time-complexity" style="margin-top: 1.2rem;">⏲️ Time Complexity for any-index insertion: <strong>O(n)</strong> (worst-case shift up to n elements).</div>
+    </div>
+
+    <hr>
+
+    <!-- Summary + final notes -->
+    <div class="intro-card" style="background: #eef3fa;">
+      <div class="section-title" style="border-left-color: #2c7da0;">📝 Summary & Key Takeaways</div>
+      <ul style="margin-left: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem;">
+        <li>✔️ <strong>Static arrays cannot be resized</strong> → always create a <strong>new array</strong> with length+1 for insertion.</li>
+        <li>✔️ Three fundamental insertion scenarios: <strong>beginning, end, any position</strong>.</li>
+        <li>✔️ <strong>Shift logic</strong> is crucial: elements after insertion point move one index right.</li>
+        <li>✔️ Time complexity for all insertion variants: <strong>O(n)</strong> (linear time) due to copying/shifting.</li>
+        <li>✔️ Use <code class="inline-code">Arrays.toString()</code> to easily print array contents.</li>
+        <li>✔️ Mastering these patterns builds a strong foundation for <strong>dynamic arrays (ArrayList)</strong> and advanced data structures.</li>
+      </ul>
+      <div style="margin-top: 1rem; background: #fff; border-radius: 1rem; padding: 1rem;">
+        <p>🎯 <strong>Interview Tip:</strong> Always remember that insertion in a static array is not in-place; you must allocate new memory. The trade-off between static & dynamic arrays often appears in system design rounds.</p>
+      </div>
+    </div>
+
+    <!-- final code snippet reminder -->
+    <div style="margin-top: 1.8rem; text-align: center;">
+      <div class="code-block" style="background: #102b38; text-align: left;">
+        <pre>// Complete Java example (import java.util.Arrays;)
+public class ArrayInsertion {
+    public static void main(String[] args) {
+        int[] original = {10, 20, 30};
+        // Insert at beginning, end, or any index as shown.
+        // Master these three patterns!
+    }
+}</pre>
+      </div>
+      <p style="margin-top: 1rem;">🔗 <strong>Pro tip:</strong> Practice on paper with different array sizes and index positions to internalize shifting logic. </p>
+    </div>
+
+
+  </div>
+</div>
+</body>
+</html>
