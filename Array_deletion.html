@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Array Deletion | Delete from Beginning, End & Any Index | DSA Tutorial</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #f0f7fc 0%, #e9f0f5 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2f3f;
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: #ffffffdd;
+      backdrop-filter: blur(0px);
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+    .hero {
+      background: linear-gradient(105deg, #0a2b38 0%, #1a5a7a 100%);
+      padding: 2rem 2rem;
+      color: white;
+      border-bottom: 4px solid #f4a261;
+    }
+    .hero h1 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(120deg, #fff, #ffd6a5);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    .hero-badge {
+      background: #f4a261;
+      color: #1a2f3f;
+      font-weight: 600;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 0.75rem;
+    }
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      opacity: 0.92;
+      max-width: 85%;
+    }
+    .content {
+      padding: 2rem 2rem 2.5rem 2rem;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 1.5rem 0 1rem 0;
+      border-left: 6px solid #f4a261;
+      padding-left: 1rem;
+      color: #0c3b4f;
+    }
+    .section-subtitle {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 1.2rem 0 0.8rem 0;
+      color: #2c5a6e;
+    }
+    .info-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+      border: 1px solid #e9f0f5;
+    }
+    .code-block {
+      background: #0e2a36;
+      border-radius: 1.2rem;
+      padding: 1rem 1.5rem;
+      margin: 1.2rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #e2f0fa;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    }
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .inline-code {
+      background: #eef2f7;
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+      font-family: monospace;
+      font-weight: 500;
+      color: #c4450c;
+      font-size: 0.9rem;
+    }
+    .node-visual {
+      background: #fef7e8;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      font-family: monospace;
+      font-size: 1rem;
+    }
+    .output {
+      background: #1e2f3a;
+      color: #bbe1ff;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 0.7rem 1.2rem;
+      border-radius: 14px;
+      margin-top: 0.8rem;
+    }
+    hr {
+      margin: 2rem 0;
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, #f4a261, #cfe3ef);
+    }
+    .interview-box {
+      background: #fff6e8;
+      padding: 1.2rem;
+      border-radius: 1.2rem;
+      margin-top: 1.5rem;
+      border-left: 6px solid #f4a261;
+    }
+    .step-box {
+      background: #eef2fa;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1rem;
+      margin: 0.8rem 0;
+    }
+    .complexity-badge {
+      background: #fef3e4;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-weight: 500;
+      margin: 1rem 0;
+      display: inline-block;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #d4e2ec;
+      color: #3f6b84;
+    }
+    @media (max-width: 700px) {
+      .hero p { max-width: 100%; }
+      .content { padding: 1.2rem; }
+      .section-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🗑️ Array Deletion | Delete from Beginning, End & Any Index</h1>
+    <div class="hero-badge">🎯 DSA Tutorial | Telugu WebTech</div>
+    <p>Complete guide to deletion in static arrays. Learn how to delete elements from beginning, end, and any index. Understand the logic, Java implementation, time complexity analysis, and common interview questions.</p>
+  </div>
+
+  <div class="content">
+    <!-- Three Types of Deletion Problems -->
+    <div class="section-title">📌 Three Types of Deletion Problems</div>
+    <div class="info-card">
+      <p>In a <strong>static array (fixed-size)</strong>, we cannot directly delete elements. Instead, we create a <strong>new array of size-1</strong> and copy all elements except the one to delete. The three deletion scenarios are:</p>
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>1. Delete from Beginning:</strong> Remove first element (index 0)</li>
+        <li><strong>2. Delete from End:</strong> Remove last element (index length-1)</li>
+        <li><strong>3. Delete from Any Index:</strong> Remove element at specific position</li>
+      </ul>
+      <div class="complexity-badge">⏱️ Overall time complexity for all cases: <strong>O(n)</strong> due to copying elements</div>
+    </div>
+
+    <!-- 1️⃣ Delete from Beginning -->
+    <div class="section-title">📍 1. Delete from Beginning</div>
+    <div class="info-card">
+      <p><strong>Problem:</strong> Delete first element (10) from array <code>[10, 20, 30, 40, 50]</code>.</p>
+      <p><strong>Approach:</strong></p>
+      <ul style="margin-left: 1.5rem;">
+        <li>Create new array of size = old length - 1</li>
+        <li>Copy all elements from index 1 onwards to new array</li>
+        <li>Skip the element at index 0</li>
+      </ul>
+      <div class="code-block">
+        <pre>public static int[] deleteFromBeginning(int[] arr) {
+    if (arr == null || arr.length == 0) return arr;
+    
+    int[] newArr = new int[arr.length - 1];
+    
+    for (int i = 1; i < arr.length; i++) {
+        newArr[i - 1] = arr[i];
+    }
+    
+    return newArr;
+}</pre>
+      </div>
+      <div class="step-box">
+        <strong>Visual:</strong> [10,20,30,40,50] → create new array size 4 → [20,30,40,50]
+      </div>
+      <div class="output">📌 <strong>Time Complexity:</strong> O(n) (copying n-1 elements)</div>
+    </div>
+
+    <!-- 2️⃣ Delete from End -->
+    <div class="section-title">📍 2. Delete from End</div>
+    <div class="info-card">
+      <p><strong>Problem:</strong> Delete last element (50) from array <code>[10, 20, 30, 40, 50]</code>.</p>
+      <div class="code-block">
+        <pre>public static int[] deleteFromEnd(int[] arr) {
+    if (arr == null || arr.length == 0) return arr;
+    
+    int[] newArr = new int[arr.length - 1];
+    
+    for (int i = 0; i < arr.length - 1; i++) {
+        newArr[i] = arr[i];
+    }
+    
+    return newArr;
+}</pre>
+      </div>
+      <div class="step-box">
+        <strong>Visual:</strong> [10,20,30,40,50] → create new array size 4 → [10,20,30,40]
+      </div>
+      <div class="output">📌 <strong>Time Complexity:</strong> O(n) (copying n-1 elements)</div>
+    </div>
+
+    <!-- 3️⃣ Delete from Any Index -->
+    <div class="section-title">📍 3. Delete from Any Index</div>
+    <div class="info-card">
+      <p><strong>Problem:</strong> Delete element at index <code>2</code> (value 30) from array <code>[10, 20, 30, 40, 50]</code>.</p>
+      <div class="code-block">
+        <pre>public static int[] deleteFromIndex(int[] arr, int index) {
+    // Validate index
+    if (arr == null || arr.length == 0 || index < 0 || index >= arr.length) {
+        System.out.println("Invalid index");
+        return arr;
+    }
+    
+    int[] newArr = new int[arr.length - 1];
+    int j = 0;
+    
+    for (int i = 0; i < arr.length; i++) {
+        if (i == index) {
+            continue;  // Skip the element to delete
+        }
+        newArr[j++] = arr[i];
+    }
+    
+    return newArr;
+}</pre>
+      </div>
+      <div class="step-box">
+        <strong>Visual:</strong> [10,20,30,40,50] → delete index 2 (30) → [10,20,40,50]
+      </div>
+      <div class="output">📌 <strong>Time Complexity:</strong> O(n) (copying n-1 elements)</div>
+    </div>
+
+    <!-- Complete Working Example -->
+    <div class="section-title">📦 Complete Java Implementation</div>
+    <div class="info-card">
+      <div class="code-block">
+        <pre>import java.util.Arrays;
+
+public class ArrayDeletion {
+    
+    // Delete element at specific index
+    public static int[] deleteFromIndex(int[] arr, int index) {
+        if (arr == null || arr.length == 0 || index < 0 || index >= arr.length) {
+            System.out.println("Invalid index: " + index);
+            return arr;
+        }
+        
+        int[] newArr = new int[arr.length - 1];
+        int j = 0;
+        
+        for (int i = 0; i < arr.length; i++) {
+            if (i == index) {
+                continue;  // Skip this element
+            }
+            newArr[j++] = arr[i];
+        }
+        return newArr;
+    }
+    
+    // Delete first element (index 0)
+    public static int[] deleteFromBeginning(int[] arr) {
+        return deleteFromIndex(arr, 0);
+    }
+    
+    // Delete last element (index length-1)
+    public static int[] deleteFromEnd(int[] arr) {
+        return deleteFromIndex(arr, arr.length - 1);
+    }
+    
+    public static void main(String[] args) {
+        int[] numbers = {10, 20, 30, 40, 50};
+        
+        System.out.println("Original array: " + Arrays.toString(numbers));
+        
+        // Delete from beginning
+        int[] afterDeleteStart = deleteFromBeginning(numbers);
+        System.out.println("After deleting first element: " + Arrays.toString(afterDeleteStart));
+        
+        // Delete from end
+        int[] afterDeleteEnd = deleteFromEnd(numbers);
+        System.out.println("After deleting last element: " + Arrays.toString(afterDeleteEnd));
+        
+        // Delete from index 2 (value 30)
+        int[] afterDeleteIndex = deleteFromIndex(numbers, 2);
+        System.out.println("After deleting index 2: " + Arrays.toString(afterDeleteIndex));
+    }
+}</pre>
+      </div>
+      <div class="output">
+        🧪 Output:<br>
+        Original array: [10, 20, 30, 40, 50]<br>
+        After deleting first element: [20, 30, 40, 50]<br>
+        After deleting last element: [10, 20, 30, 40]<br>
+        After deleting index 2: [10, 20, 40, 50]
+      </div>
+    </div>
+
+    <!-- Visual Explanation of Skipping Logic -->
+    <div class="section-title">🎨 Visual: How Deletion Works (Skip Logic)</div>
+    <div class="info-card">
+      <div class="node-visual">
+        <strong>Original Array:</strong> [10, 20, 30, 40, 50]<br>
+        <strong>Delete index 2 (value 30):</strong><br><br>
+        <strong>Step 1:</strong> i=0 (10) → not index to delete → copy to newArr[0] = 10, j=1<br>
+        <strong>Step 2:</strong> i=1 (20) → not index to delete → copy to newArr[1] = 20, j=2<br>
+        <strong>Step 3:</strong> i=2 (30) → IS index to delete → SKIP (continue), j stays 2<br>
+        <strong>Step 4:</strong> i=3 (40) → copy to newArr[2] = 40, j=3<br>
+        <strong>Step 5:</strong> i=4 (50) → copy to newArr[3] = 50, j=4<br><br>
+        <strong>Result:</strong> [10, 20, 40, 50] ✅
+      </div>
+      <div class="output">💡 The <code>continue</code> keyword skips copying the element to be deleted!</div>
+    </div>
+
+    <!-- Time Complexity Summary -->
+    <div class="section-title">⏱️ Time Complexity Summary</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>Delete from Beginning:</strong> O(n) — copy remaining n-1 elements</li>
+        <li><strong>Delete from End:</strong> O(n) — copy first n-1 elements</li>
+        <li><strong>Delete at Index:</strong> O(n) — copy all elements except the deleted one</li>
+      </ul>
+      <div class="complexity-badge">📌 All deletion operations in static arrays have <strong>O(n) time complexity</strong> due to element copying.</div>
+    </div>
+
+    <!-- ========== INTERVIEW QUESTIONS & ANSWERS ========== -->
+    <div class="section-title">🎤 Interview Questions & Answers</div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q1: How do you delete an element from a static array in Java?</strong></p>
+      <p><strong>Answer:</strong> Since static arrays have fixed size, you must create a new array of size = original length - 1, then copy all elements except the one to delete. Use a loop and skip the target index using <code>continue</code>.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q2: What is the time complexity of deleting an element from an array?</strong></p>
+      <p><strong>Answer:</strong> O(n) — linear time. Because we must copy all remaining elements to the new array. If the array has n elements, we copy n-1 elements.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q3: Can we delete an element from an array without creating a new array?</strong></p>
+      <p><strong>Answer:</strong> No, because static arrays have fixed size. You can set the value to null/zero, but the size remains the same. For true deletion (size reduction), you need a new array.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q4: What happens if we try to delete from an invalid index?</strong></p>
+      <p><strong>Answer:</strong> We should validate the index first. If index < 0 or index >= array length, print an error message and return the original array (or throw an exception).</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q5: How is deletion different from setting a value to zero?</strong></p>
+      <p><strong>Answer:</strong> Setting to zero keeps the element (just changes value). Deletion removes the element entirely and reduces array size.</p>
+    </div>
+
+    <div class="interview-box">
+      <p><strong>❓ Q6: What is the best way to handle deletions if you need dynamic size?</strong></p>
+      <p><strong>Answer:</strong> Use <strong>ArrayList</strong> in Java, which handles dynamic resizing automatically. Internally, it creates a new array when needed.</p>
+    </div>
+
+    <!-- Edge Cases -->
+    <div class="section-title">⚠️ Edge Cases to Handle</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>Empty array:</strong> Return the same array or print error</li>
+        <li><strong>Single element array:</strong> Delete operation returns empty array (size 0)</li>
+        <li><strong>Invalid index (negative or ≥ length):</strong> Print error and return original array</li>
+        <li><strong>Null array:</strong> Check for null before processing</li>
+      </ul>
+    </div>
+
+    <!-- Delete vs Remove Terminology -->
+    <div class="section-title">📝 Delete vs Remove vs Clear</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>Delete:</strong> Remove an element and reduce array size (creates new array)</li>
+        <li><strong>Set to zero/null:</strong> Element still exists, just value changed</li>
+        <li><strong>Clear:</strong> Remove all elements (create empty array)</li>
+      </ul>
+    </div>
+
+    <!-- Summary -->
+    <hr>
+    <div class="info-card" style="background: #fdfaf5;">
+      <div class="section-title" style="border-left-color: #e76f51;">📌 Summary & Key Takeaways</div>
+      <ul style="margin-left: 1.5rem;">
+        <li>✔️ <strong>Static arrays</strong> have fixed size → create new array for deletion</li>
+        <li>✔️ <strong>Delete from beginning:</strong> Copy from index 1 to new array</li>
+        <li>✔️ <strong>Delete from end:</strong> Copy from index 0 to length-2</li>
+        <li>✔️ <strong>Delete at index:</strong> Use continue to skip the target index</li>
+        <li>✔️ <strong>Time complexity:</strong> O(n) for all three cases</li>
+        <li>✔️ <strong>Always validate index</strong> before deletion</li>
+      </ul>
+      <div style="margin-top: 1rem; background: white; border-radius: 1rem; padding: 0.8rem;">
+        <p>🎯 <strong>Next Video:</strong> Array Searching — Linear Search and Binary Search algorithms.</p>
+      </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1rem; background: #eaf2f5; border-radius: 2rem;">
+      <p style="font-weight: 500;">🔜 <strong>Next Video:</strong> Array Searching — Linear Search and Binary Search with code examples.</p>
+    </div>
+
+
+  </div>
+</div>
+</body>
+</html>
