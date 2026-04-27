@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Linear Search in Array | Complete DSA Tutorial | Java Implementation</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #f0f7fc 0%, #e9f0f5 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2f3f;
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: #ffffffdd;
+      backdrop-filter: blur(0px);
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+    .hero {
+      background: linear-gradient(105deg, #0a2b38 0%, #1a5a7a 100%);
+      padding: 2rem 2rem;
+      color: white;
+      border-bottom: 4px solid #f4a261;
+    }
+    .hero h1 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(120deg, #fff, #ffd6a5);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    .hero-badge {
+      background: #f4a261;
+      color: #1a2f3f;
+      font-weight: 600;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 0.75rem;
+    }
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      opacity: 0.92;
+      max-width: 85%;
+    }
+    .content {
+      padding: 2rem 2rem 2.5rem 2rem;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 1.5rem 0 1rem 0;
+      border-left: 6px solid #f4a261;
+      padding-left: 1rem;
+      color: #0c3b4f;
+    }
+    .section-subtitle {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 1.2rem 0 0.8rem 0;
+      color: #2c5a6e;
+    }
+    .info-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+      border: 1px solid #e9f0f5;
+    }
+    .code-block {
+      background: #0e2a36;
+      border-radius: 1.2rem;
+      padding: 1rem 1.5rem;
+      margin: 1.2rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #e2f0fa;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    }
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .inline-code {
+      background: #eef2f7;
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+      font-family: monospace;
+      font-weight: 500;
+      color: #c4450c;
+      font-size: 0.9rem;
+    }
+    .output {
+      background: #1e2f3a;
+      color: #bbe1ff;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 0.7rem 1.2rem;
+      border-radius: 14px;
+      margin-top: 0.8rem;
+    }
+    hr {
+      margin: 2rem 0;
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, #f4a261, #cfe3ef);
+    }
+    .interview-box {
+      background: #fff6e8;
+      padding: 1.2rem;
+      border-radius: 1.2rem;
+      margin-top: 1.5rem;
+      border-left: 6px solid #f4a261;
+    }
+    .step-box {
+      background: #eef2fa;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1rem;
+      margin: 0.8rem 0;
+    }
+    .complexity-badge {
+      background: #fef3e4;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-weight: 500;
+      margin: 1rem 0;
+      display: inline-block;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #d4e2ec;
+      color: #3f6b84;
+    }
+    @media (max-width: 700px) {
+      .hero p { max-width: 100%; }
+      .content { padding: 1.2rem; }
+      .section-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🔍 Linear Search in Array | Complete DSA Tutorial</h1>
+    <div class="hero-badge">🎯 DSA Series | Telugu WebTech</div>
+    <p>Master Linear Search algorithm: implementation in Java, time complexity analysis, best/worst cases, when to use it, and comparison with Binary Search.</p>
+  </div>
+
+  <div class="content">
+    <!-- What is Linear Search -->
+    <div class="section-title">📌 What is Linear Search?</div>
+    <div class="info-card">
+      <p><strong>Linear Search</strong> is the simplest searching algorithm. It sequentially checks each element of the array until a match is found or the entire array has been traversed.</p>
+      <ul style="margin-left: 1.5rem;">
+        <li>✅ If element is found → returns the <strong>index</strong></li>
+        <li>✅ If element is not found → returns <strong>-1</strong> (since valid indices start at 0)</li>
+        <li>✅ Works on <strong>both sorted and unsorted</strong> arrays</li>
+      </ul>
+      <div class="step-box">
+        💡 <strong>Return -1 convention:</strong> Array indices start at 0, so -1 safely indicates "not found".
+      </div>
+    </div>
+
+    <!-- Problem Understanding -->
+    <div class="section-title">🎯 Understanding the Search Operation</div>
+    <div class="info-card">
+      <p>Given an array and a <strong>target value</strong>, find if the target exists in the array:</p>
+      <ul style="margin-left: 1.5rem;">
+        <li>✅ If found → return the index of the target</li>
+        <li>✅ If not found → return -1</li>
+      </ul>
+      <div class="step-box">
+        <strong>Example:</strong> Array = [10, 20, 30, 40, 50], Target = 30 → Output: index 2<br>
+        <strong>Example:</strong> Target = 80 → Output: -1
+      </div>
+    </div>
+
+    <!-- Java Implementation -->
+    <div class="section-title">⚙️ Linear Search Implementation (Java)</div>
+    <div class="info-card">
+      <div class="code-block">
+        <pre>public class ArrayLinearSearch {
+    public static void main(String[] args) {
+        // Array can be sorted or unsorted
+        int[] arr = {10, 20, 30, 40, 50};
+        int target = 30;
+        
+        int result = linearSearch(arr, target);
+        
+        if (result != -1) {
+            System.out.println("Element found at index: " + result);
+        } else {
+            System.out.println("Element not found in the array");
+        }
+    }
+    
+    public static int linearSearch(int[] arr, int target) {
+        // Traverse the array sequentially
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == target) {
+                return i;   // Return index if found
+            }
+        }
+        return -1;   // Not found
+    }
+}</pre>
+      </div>
+      <div class="output">🧪 Output: Element found at index: 2</div>
+    </div>
+
+    <!-- Step-by-Step Dry Run -->
+    <div class="section-title">📖 Step-by-Step Dry Run</div>
+    <div class="info-card">
+      <p>Array: <code class="inline-code">[10, 20, 30, 40, 50]</code>, Target = <strong>30</strong></p>
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>Iteration 1:</strong> i=0 → arr[0]=10 → 10 == 30? No → continue</li>
+        <li><strong>Iteration 2:</strong> i=1 → arr[1]=20 → 20 == 30? No → continue</li>
+        <li><strong>Iteration 3:</strong> i=2 → arr[2]=30 → 30 == 30? Yes → return 2 ✅</li>
+      </ul>
+      <div class="output">✅ Found at index 2!</div>
+    </div>
+
+    <!-- Unsorted Array Example -->
+    <div class="section-title">🔀 Works on Unsorted Arrays Too</div>
+    <div class="info-card">
+      <div class="code-block">
+        <pre>int[] unsortedArr = {50, 10, 80, 25, 99};
+int target = 25;
+int position = linearSearch(unsortedArr, target);
+// Output: position = 3 (found at index 3)</pre>
+      </div>
+      <div class="output">💡 Linear search does NOT require the array to be sorted — it works on any array!</div>
+    </div>
+
+    <!-- Time Complexity Analysis -->
+    <div class="section-title">⏱️ Time Complexity of Linear Search</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>Best Case:</strong> O(1) — element found at the first index (index 0)</li>
+        <li><strong>Worst Case:</strong> O(n) — element at the last index or not present (must traverse all n elements)</li>
+        <li><strong>Average Case:</strong> O(n) — on average, we scan half the array</li>
+      </ul>
+      <div class="complexity-badge">📉 Worst-case: O(n) → for large n, inefficient compared to Binary Search (O(log n))</div>
+    </div>
+
+    <!-- When to Use Linear Search -->
+    <div class="section-title">✅ When to Use Linear Search?</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li>✔️ The array is <strong>small</strong> (few elements)</li>
+        <li>✔️ The array is <strong>unsorted</strong> and sorting is not feasible</li>
+        <li>✔️ Searching in a <strong>linked list</strong> or other linear structures (no random access)</li>
+        <li>✔️ Simplicity is required — easy to implement and understand</li>
+      </ul>
+      <div class="step-box">
+        ⚠️ <strong>Drawback:</strong> For large datasets (millions of elements), linear search becomes too slow. Use Binary Search for sorted arrays.
+      </div>
+    </div>
+
+    <!-- Real-Life Analogy -->
+    <div class="section-title">💡 Real-Life Analogy</div>
+    <div class="info-card">
+      <div class="step-box">
+        Imagine you have a stack of exam papers (unsorted). You are looking for a specific student's paper. You check each paper one by one from top to bottom until you find it. That's exactly how linear search works! ✅
+      </div>
+    </div>
+
+    <!-- More Examples -->
+    <div class="section-title">📚 More Examples</div>
+    
+    <div class="section-subtitle">Example 1: Target at first index (Best Case)</div>
+    <div class="code-block">
+      <pre>int[] arr = {10, 20, 30, 40, 50};
+int target = 10;
+// Linear search checks index 0 → found immediately → returns 0
+// Time complexity: O(1)</pre>
+    </div>
+
+    <div class="section-subtitle">Example 2: Target not in array (Worst Case)</div>
+    <div class="code-block">
+      <pre>int[] arr = {10, 20, 30, 40, 50};
+int target = 100;
+// Linear search checks all 5 elements → returns -1
+// Time complexity: O(n)</pre>
+    </div>
+
+    <!-- ========== INTERVIEW QUESTIONS & ANSWERS ========== -->
+    <div class="section-title">🎤 Interview Questions & Answers</div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q1: What is Linear Search? Explain with example.</strong></p>
+      <p><strong>Answer:</strong> Linear search sequentially checks each element of an array until the target is found. Example: Searching for 30 in [10,20,30,40,50] checks index 0 (10), index 1 (20), then index 2 (30) → found. Returns index 2.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q2: What is the time complexity of Linear Search in worst case?</strong></p>
+      <p><strong>Answer:</strong> O(n) — where n is the number of elements. In worst case (element at last index or not present), we must check all n elements.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q3: Does Linear Search require the array to be sorted?</strong></p>
+      <p><strong>Answer:</strong> No, linear search works on both sorted and unsorted arrays. It checks each element sequentially regardless of order.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q4: What is the best case time complexity of Linear Search?</strong></p>
+      <p><strong>Answer:</strong> O(1) — when the target element is at the first position (index 0). We find it in the first comparison.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q5: Why does Linear Search return -1 when element is not found?</strong></p>
+      <p><strong>Answer:</strong> Because array indices start at 0. Returning 0 would incorrectly indicate the element is at index 0. -1 is a safe "not found" value.</p>
+    </div>
+
+    <div class="interview-box">
+      <p><strong>❓ Q6: When would you choose Linear Search over Binary Search?</strong></p>
+      <p><strong>Answer:</strong> Choose Linear Search when: 1) The array is unsorted, 2) The array is very small, 3) You need simplicity, 4) Working with linked lists or other structures without random access.</p>
+    </div>
+
+    <!-- Comparison with Binary Search -->
+    <div class="section-title">📊 Linear Search vs Binary Search (Quick Preview)</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>Linear Search:</strong> Works on any array (sorted/unsorted). Time = O(n). Simple.</li>
+        <li><strong>Binary Search:</strong> Requires <strong>sorted array</strong>. Time = O(log n) → much faster for large datasets.</li>
+      </ul>
+      <div class="output">👉 Next video: Binary Search algorithm with complete implementation and comparison.</div>
+    </div>
+
+    <!-- Edge Cases -->
+    <div class="section-title">⚠️ Edge Cases</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>Empty array:</strong> Loop doesn't run → returns -1 correctly</li>
+        <li><strong>Single element array:</strong> Works fine (one comparison)</li>
+        <li><strong>Duplicate elements:</strong> Returns the <strong>first occurrence</strong> (lowest index)</li>
+        <li><strong>Null array:</strong> Should check for null before processing to avoid NullPointerException</li>
+      </ul>
+    </div>
+
+    <!-- Summary -->
+    <hr>
+    <div class="info-card" style="background: #fdfaf5;">
+      <div class="section-title" style="border-left-color: #e76f51;">📌 Summary & Key Takeaways</div>
+      <ul style="margin-left: 1.5rem;">
+        <li>✔️ <strong>Linear Search</strong> = sequential scan from index 0 to n-1</li>
+        <li>✔️ Returns index if target found, else <strong>-1</strong></li>
+        <li>✔️ <strong>Time Complexity:</strong> O(n) worst case, O(1) best case</li>
+        <li>✔️ Works on <strong>sorted and unsorted</strong> arrays</li>
+        <li>✔️ Ideal for <strong>small or unsorted</strong> datasets</li>
+        <li>✔️ No extra memory required → in-place algorithm</li>
+      </ul>
+      <div style="margin-top: 1rem; background: white; border-radius: 1rem; padding: 0.8rem;">
+        <p>🎯 <strong>Interview Tip:</strong> Be ready to explain linear search complexity and when you'd choose it over binary search. Also mention that linear search can be used on linked lists and other linear structures.</p>
+      </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1rem; background: #eaf2f5; border-radius: 2rem;">
+      <p style="font-weight: 500;">🔜 <strong>Next Video:</strong> Binary Search — Fast searching on sorted arrays, comparison with Linear Search, and real-world optimization.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.9rem;">📌 Subscribe & share this playlist to become a DSA Champion!</p>
+    </div>
+
+
+  </div>
+</div>
+</body>
+</html>
