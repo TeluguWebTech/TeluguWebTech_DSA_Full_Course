@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Bubble Sort | Practical Implementation in Java | DSA Tutorial</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #f0f7fc 0%, #e9f0f5 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2f3f;
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: #ffffffdd;
+      backdrop-filter: blur(0px);
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+    .hero {
+      background: linear-gradient(105deg, #0a2b38 0%, #1a5a7a 100%);
+      padding: 2rem 2rem;
+      color: white;
+      border-bottom: 4px solid #f4a261;
+    }
+    .hero h1 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(120deg, #fff, #ffd6a5);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    .hero-badge {
+      background: #f4a261;
+      color: #1a2f3f;
+      font-weight: 600;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 0.75rem;
+    }
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      opacity: 0.92;
+      max-width: 85%;
+    }
+    .content {
+      padding: 2rem 2rem 2.5rem 2rem;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 1.5rem 0 1rem 0;
+      border-left: 6px solid #f4a261;
+      padding-left: 1rem;
+      color: #0c3b4f;
+    }
+    .section-subtitle {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 1.2rem 0 0.8rem 0;
+      color: #2c5a6e;
+    }
+    .info-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+      border: 1px solid #e9f0f5;
+    }
+    .code-block {
+      background: #0e2a36;
+      border-radius: 1.2rem;
+      padding: 1rem 1.5rem;
+      margin: 1.2rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #e2f0fa;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    }
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .inline-code {
+      background: #eef2f7;
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+      font-family: monospace;
+      font-weight: 500;
+      color: #c4450c;
+      font-size: 0.9rem;
+    }
+    .output {
+      background: #1e2f3a;
+      color: #bbe1ff;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 0.7rem 1.2rem;
+      border-radius: 14px;
+      margin-top: 0.8rem;
+    }
+    hr {
+      margin: 2rem 0;
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, #f4a261, #cfe3ef);
+    }
+    .interview-box {
+      background: #fff6e8;
+      padding: 1.2rem;
+      border-radius: 1.2rem;
+      margin-top: 1.5rem;
+      border-left: 6px solid #f4a261;
+    }
+    .step-box {
+      background: #eef2fa;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1rem;
+      margin: 0.8rem 0;
+    }
+    .complexity-badge {
+      background: #fef3e4;
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      font-weight: 500;
+      margin: 1rem 0;
+      display: inline-block;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #d4e2ec;
+      color: #3f6b84;
+    }
+    @media (max-width: 700px) {
+      .hero p { max-width: 100%; }
+      .content { padding: 1.2rem; }
+      .section-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🫧 Bubble Sort | Practical Implementation in Java</h1>
+    <div class="hero-badge">🎯 DSA Tutorial | Complete Guide with Code, Dry Run & Interview Q&A</div>
+    <p>Master Bubble Sort algorithm: step-by-step Java implementation, optimization with swap flag, time complexity analysis (O(n²) worst case, O(n) best case), real-life analogy, and when to use/avoid it.</p>
+  </div>
+
+  <div class="content">
+    <!-- Quick Recap -->
+    <div class="section-title">📌 Bubble Sort Recap (Theoretical)</div>
+    <div class="info-card">
+      <p><strong>Bubble Sort</strong> repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. Larger elements "bubble up" to the end with each pass.</p>
+      <ul style="margin-left: 1.5rem;">
+        <li>✅ Compares adjacent elements (arr[j] and arr[j+1])</li>
+        <li>✅ Swaps if left element > right element (for ascending order)</li>
+        <li>✅ After each pass, the largest element moves to its correct position at the end</li>
+        <li>✅ Process repeats until the entire array is sorted</li>
+      </ul>
+      <div class="step-box">
+        <strong>Real-life analogy:</strong> Students lining up by height — adjacent students compare heights and swap positions if the taller one is in front. After several passes, the tallest student ends up at the end.
+      </div>
+    </div>
+
+    <!-- Complete Java Implementation -->
+    <div class="section-title">⚙️ Complete Java Implementation (Optimized)</div>
+    <div class="info-card">
+      <div class="code-block">
+        <pre>public class BubbleSort {
+
+    
+    // Optimized Bubble Sort with early termination
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;
+        
+        // Outer loop for number of passes
+        for (int i = 0; i < n - 1; i++) {
+            boolean swapped = false;  // flag to detect any swap
+            
+            // Inner loop for comparing adjacent elements
+            // n-i-1 because last i elements are already sorted
+            for (int j = 0; j < n - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    // Swap arr[j] and arr[j+1] using temporary variable
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+            
+            // If no swaps happened, array is already sorted
+            if (!swapped) {
+                break;
+            }
+        }
+    }
+    
+    // Utility method to print array
+    public static void printArray(int[] arr) {
+        for (int value : arr) {
+            System.out.print(value + " ");
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        // Student heights in cm (unsorted)
+        int[] studentHeights = {170, 150, 180, 160, 155};
+        
+        System.out.print("Before sorting: ");
+        printArray(studentHeights);
+        
+        bubbleSort(studentHeights);
+        
+        System.out.print("After sorting: ");
+        printArray(studentHeights);
+    }
+}</pre>
+      </div>
+      <div class="output">
+        🧪 Output:<br>
+        Before sorting: 170 150 180 160 155 <br>
+        After sorting: 150 155 160 170 180
+      </div>
+    </div>
+    <!-- Step-by-Step Dry Run -->
+    <div class="section-title">📖 Step-by-Step Dry Run</div>
+    <div class="info-card">
+      <p><strong>Initial array:</strong> [170, 150, 180, 160, 155] (n=5)</p>
+      <div class="step-box">
+        <strong>Pass 1 (i=0, j from 0 to 3):</strong><br>
+        j=0: 170 > 150 → swap → [150, 170, 180, 160, 155]<br>
+        j=1: 170 > 180? No → [150, 170, 180, 160, 155]<br>
+        j=2: 180 > 160 → swap → [150, 170, 160, 180, 155]<br>
+        j=3: 180 > 155 → swap → [150, 170, 160, 155, 180]<br>
+        ✅ Largest element 180 moved to last position.
+      </div>
+      <div class="step-box">
+        <strong>Pass 2 (i=1, j from 0 to 2):</strong><br>
+        j=0: 150 > 170? No → [150, 170, 160, 155, 180]<br>
+        j=1: 170 > 160 → swap → [150, 160, 170, 155, 180]<br>
+        j=2: 170 > 155 → swap → [150, 160, 155, 170, 180]<br>
+        ✅ Second largest 170 moved to second-last position.
+      </div>
+      <div class="step-box">
+        <strong>Pass 3 (i=2, j from 0 to 1):</strong><br>
+        j=0: 150 > 160? No → [150, 160, 155, 170, 180]<br>
+        j=1: 160 > 155 → swap → [150, 155, 160, 170, 180]<br>
+      </div>
+      <div class="step-box">
+        <strong>Pass 4 (i=3, j from 0 to 0):</strong><br>
+        j=0: 150 > 155? No → no swaps → swapped flag remains false → break early.<br>
+        <strong>Final sorted array:</strong> [150, 155, 160, 170, 180] ✅
+      </div>
+    </div>
+
+    <!-- Visualization of Bubble Sort -->
+    <div class="section-title">🎨 Visual Representation</div>
+    <div class="info-card">
+      <div class="node-visual" style="background: #fef7e8; padding: 1rem; border-radius: 1rem; text-align: center; font-family: monospace;">
+        Pass 1: [170, 150, 180, 160, 155] → [150, 170, 160, 155, 180]<br>
+        Pass 2: [150, 170, 160, 155, 180] → [150, 160, 155, 170, 180]<br>
+        Pass 3: [150, 160, 155, 170, 180] → [150, 155, 160, 170, 180]<br>
+        Pass 4: No swaps → Array sorted ✅
+      </div>
+    </div>
+
+    <!-- Time Complexity Analysis -->
+    <div class="section-title">⏱️ Time Complexity Analysis</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>Best Case (Already sorted):</strong> O(n) — only one pass with no swaps, early termination via <code>swapped</code> flag.</li>
+        <li><strong>Worst Case (Reverse sorted):</strong> O(n²) — each pass performs maximum swaps, nested loops run fully.</li>
+        <li><strong>Average Case:</strong> O(n²) — approximately n²/2 comparisons and swaps.</li>
+        <li><strong>Space Complexity:</strong> O(1) — in-place sorting, only uses a temporary variable for swapping.</li>
+      </ul>
+      <div class="complexity-badge">📌 Bubble Sort is not suitable for large datasets due to O(n²) time complexity.</div>
+    </div>
+
+    <!-- When to Use / Avoid Bubble Sort -->
+    <div class="section-title">✅ When to Use & ❌ When to Avoid</div>
+    <div class="info-card">
+      <p><strong>Use Bubble Sort when:</strong></p>
+      <ul style="margin-left: 1.5rem;">
+        <li>✔️ Dataset is <strong>small</strong> (n < 1000)</li>
+        <li>✔️ Data is <strong>nearly sorted</strong> (best case O(n) with optimization)</li>
+        <li>✔️ Learning/simple implementation for educational purposes</li>
+      </ul>
+      <p style="margin-top: 0.8rem;"><strong>Avoid Bubble Sort when:</strong></p>
+      <ul style="margin-left: 1.5rem;">
+        <li>❌ Dataset is <strong>large</strong> (use Merge Sort or Quick Sort instead)</li>
+        <li>❌ Performance is critical (O(n²) is too slow for millions of elements)</li>
+      </ul>
+      <div class="output">💡 In industry, Bubble Sort is rarely used for production. It's mainly for learning sorting fundamentals.</div>
+    </div>
+
+    <!-- Optimizations Explained -->
+    <div class="section-title">⚡ Optimizations in the Code</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>1. Early Termination with <code>swapped</code> flag:</strong> If no swaps occur in a pass, the array is already sorted, and we break out of the loop. This gives O(n) best-case performance.</li>
+        <li><strong>2. Reducing inner loop range:</strong> After each pass, the largest element is at the end, so we decrease the inner loop limit by <code>i</code> (<code>n - i - 1</code>). This avoids re-checking already sorted elements.</li>
+      </ul>
+    </div>
+
+    <!-- ========== INTERVIEW QUESTIONS & ANSWERS ========== -->
+    <div class="section-title">🎤 Interview Questions & Answers</div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q1: Explain Bubble Sort with an example.</strong></p>
+      <p><strong>Answer:</strong> Bubble Sort repeatedly compares adjacent elements and swaps them if they are in the wrong order. Example: [170,150,180] → compare 170 and 150 → swap → [150,170,180] → compare 170 and 180 → no swap → sorted. After each pass, the largest element "bubbles up" to the end.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q2: What is the time complexity of Bubble Sort?</strong></p>
+      <p><strong>Answer:</strong> Best case O(n) (already sorted with optimization), Worst case O(n²), Average case O(n²). Space complexity O(1).</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q3: How can Bubble Sort be optimized?</strong></p>
+      <p><strong>Answer:</strong> Use a <code>swapped</code> flag to detect if any swap occurred in a pass. If no swaps, break early. Also, reduce the inner loop range after each pass because the last i elements are already sorted.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q4: Is Bubble Sort stable? Why?</strong></p>
+      <p><strong>Answer:</strong> Yes, Bubble Sort is stable. It only swaps adjacent elements when the left element is greater than the right. Equal elements maintain their relative order.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q5: Why is Bubble Sort not used for large datasets?</strong></p>
+      <p><strong>Answer:</strong> Because its O(n²) time complexity becomes extremely slow for large n. For 1 million elements, it would take ~500 billion comparisons. Merge Sort or Quick Sort with O(n log n) are much faster.</p>
+    </div>
+
+    <div class="interview-box">
+      <p><strong>❓ Q6: Write the swap logic without a temporary variable (using XOR).</strong></p>
+      <p><strong>Answer:</strong> Using XOR swap (works only for integers, not recommended for readability):</p>
+      <div class="code-block" style="margin-top: 0.5rem;">
+        <pre>arr[j] = arr[j] ^ arr[j+1];
+arr[j+1] = arr[j] ^ arr[j+1];
+arr[j] = arr[j] ^ arr[j+1];</pre>
+      </div>
+      <div class="output">⚠️ However, using a temporary variable is clearer and recommended in interviews.</div>
+    </div>
+
+    <!-- Edge Cases -->
+    <div class="section-title">⚠️ Edge Cases</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>Empty array:</strong> No sorting needed, loop doesn't run.</li>
+        <li><strong>Single element array:</strong> Already sorted, no swaps.</li>
+        <li><strong>Already sorted array:</strong> One pass, swapped flag remains false → early termination (O(n)).</li>
+        <li><strong>Reverse sorted array:</strong> Worst case O(n²), maximum swaps in each pass.</li>
+        <li><strong>Array with duplicate values:</strong> Stable sort preserves relative order of duplicates.</li>
+      </ul>
+    </div>
+
+    <!-- Summary -->
+    <hr>
+    <div class="info-card" style="background: #fdfaf5;">
+      <div class="section-title" style="border-left-color: #e76f51;">📌 Summary & Key Takeaways</div>
+      <ul style="margin-left: 1.5rem;">
+        <li>✔️ <strong>Bubble Sort</strong> = adjacent comparisons + swaps</li>
+        <li>✔️ <strong>Time:</strong> O(n²) worst, O(n) best (optimized)</li>
+        <li>✔️ <strong>Space:</strong> O(1) — in-place sorting</li>
+        <li>✔️ <strong>Optimization:</strong> `swapped` flag for early termination</li>
+        <li>✔️ <strong>Use for:</strong> Small datasets, nearly sorted data, learning purposes</li>
+        <li>✔️ <strong>Avoid for:</strong> Large datasets, performance-critical applications</li>
+      </ul>
+      <div style="margin-top: 1rem; background: white; border-radius: 1rem; padding: 0.8rem;">
+        <p>🎯 <strong>Next Video:</strong> Selection Sort — Practical implementation with code and complexity analysis.</p>
+      </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div style="text-align: center; margin-top: 2rem; padding: 1rem; background: #eaf2f5; border-radius: 2rem;">
+      <p style="font-weight: 500;">🔜 <strong>Next Video:</strong> Selection Sort — Find minimum and place at correct position with Java implementation.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.9rem;">📌 Subscribe & share this playlist to become a DSA Champion!</p>
+    </div>
+
+
+  </div>
+</div>
+</body>
+</html>
