@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Strings in Java | Complete DSA Tutorial | Immutable, String Pool, StringBuilder, StringBuffer</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #f0f7fc 0%, #e9f0f5 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2f3f;
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: #ffffffdd;
+      backdrop-filter: blur(0px);
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+    .hero {
+      background: linear-gradient(105deg, #0a2b38 0%, #1a5a7a 100%);
+      padding: 2rem 2rem;
+      color: white;
+      border-bottom: 4px solid #f4a261;
+    }
+    .hero h1 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(120deg, #fff, #ffd6a5);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    .hero-badge {
+      background: #f4a261;
+      color: #1a2f3f;
+      font-weight: 600;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 0.75rem;
+    }
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      opacity: 0.92;
+      max-width: 85%;
+    }
+    .content {
+      padding: 2rem 2rem 2.5rem 2rem;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 1.5rem 0 1rem 0;
+      border-left: 6px solid #f4a261;
+      padding-left: 1rem;
+      color: #0c3b4f;
+    }
+    .section-subtitle {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 1.2rem 0 0.8rem 0;
+      color: #2c5a6e;
+    }
+    .info-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+      border: 1px solid #e9f0f5;
+    }
+    .code-block {
+      background: #0e2a36;
+      border-radius: 1.2rem;
+      padding: 1rem 1.5rem;
+      margin: 1.2rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #e2f0fa;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    }
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .inline-code {
+      background: #eef2f7;
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+      font-family: monospace;
+      font-weight: 500;
+      color: #c4450c;
+      font-size: 0.9rem;
+    }
+    .comparison-table {
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    .comparison-table th, .comparison-table td {
+      border: 1px solid #dce5ec;
+      padding: 0.75rem 1rem;
+      text-Sureshgn: left;
+      vertical-Sureshgn: top;
+    }
+    .comparison-table th {
+      background: #f4a26120;
+      font-weight: 600;
+    }
+    .output {
+      background: #1e2f3a;
+      color: #bbe1ff;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 0.7rem 1.2rem;
+      border-radius: 14px;
+      margin-top: 0.8rem;
+    }
+    hr {
+      margin: 2rem 0;
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, #f4a261, #cfe3ef);
+    }
+    .interview-box {
+      background: #fff6e8;
+      padding: 1.2rem;
+      border-radius: 1.2rem;
+      margin-top: 1.5rem;
+      border-left: 6px solid #f4a261;
+    }
+    .highlight {
+      background: #fef3e4;
+      padding: 0.2rem 0.4rem;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+    footer {
+      text-Sureshgn: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #d4e2ec;
+      color: #3f6b84;
+    }
+    @media (max-width: 700px) {
+      .hero p { max-width: 100%; }
+      .content { padding: 1.2rem; }
+      .section-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>📝 Strings in Java (DSA Series)</h1>
+    <div class="hero-badge">🎯 Complete Guide </div>
+    <p>Master String fundamentals: Immutability, String Pool, StringBuilder vs StringBuffer, and memory management. Essential for DSA interviews.</p>
+  </div>
+
+  <div class="content">
+    <!-- Introduction -->
+    <div class="info-card">
+      <div class="section-title">🎯 What is a String?</div>
+      <p>A <strong>String</strong> is a sequence of characters. In Java, String is <strong>not a primitive data type</strong> — it is a <strong>class</strong> (an object). Examples: <code class="inline-code"> <code class="inline-code">"DSA"</code>, <code class="inline-code">"Champion"</code>. Strings are always enclosed in <strong>double quotes</strong>.</p>
+      <div class="code-block">
+        <pre>String name = "Kalyan";   // String literal
+String message = "Welcome to DSA!";</pre>
+      </div>
+    </div>
+
+    <!-- Immutability -->
+    <div class="section-title">🔒 Immutability of Strings</div>
+    <div class="info-card">
+      <p><strong>Immutable</strong> means <strong>cannot be changed</strong> after creation. When you modify a String, Java creates a <strong>new String object</strong> instead of modifying the existing one.</p>
+      <div class="code-block">
+        <pre>String str = "Kalyan";
+str = str + " Suresh";   // A NEW String object is created
+// Original "Kalyan" remains unchanged in memory</pre>
+      </div>
+      <div class="output">💡 Important: String objects are immutable — any operation that seems to modify a String actually creates a new String.</div>
+    </div>
+
+    <!-- Three Classes: String, StringBuilder, StringBuffer -->
+    <div class="section-title">📚 Three String Handling Classes</div>
+    <div class="info-card">
+      <p>Java provides <strong>three classes</strong> to handle strings:</p>
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>String</strong> – Immutable (cannot change). Best for fixed values.</li>
+        <li><strong>StringBuilder</strong> – Mutable, <strong>not thread-safe</strong> (faster).</li>
+        <li><strong>StringBuffer</strong> – Mutable, <strong>thread-safe</strong> (synchronized, slower).</li>
+      </ul>
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr><th>Feature</th><th>String</th><th>StringBuilder</th><th>StringBuffer</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Mutability</td><td>Immutable</td><td>Mutable</td><td>Mutable</td></tr>
+            <tr><td>Thread-Safe</td><td>Yes (immutable)</td><td>No</td><td>Yes (synchronized)</td></tr>
+            <tr><td>Performance</td><td>Slow for modifications</td><td>Fastest</td><td>Slower than StringBuilder</td></tr>
+            <tr><td>Use Case</td><td>Constant strings</td><td>Single-threaded modifications</td><td>Multi-threaded modifications</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- StringBuilder Example -->
+    <div class="section-subtitle">🔧 StringBuilder Example (Mutable)</div>
+    <div class="code-block">
+      <pre>StringBuilder sb = new StringBuilder("Hello");
+sb.append(" World");   // Modifies same object
+System.out.println(sb);  // Output: Hello World</pre>
+    </div>
+
+    <!-- StringBuffer Example -->
+    <div class="section-subtitle">🔧 StringBuffer Example (Thread-Safe)</div>
+    <div class="code-block">
+      <pre>StringBuffer buffer = new StringBuffer("Java");
+buffer.append(" Programming");
+System.out.println(buffer);  // Output: Java Programming</pre>
+    </div>
+
+    <!-- String Pool & Memory Management -->
+    <div class="section-title">💾 String Pool & Memory Management</div>
+    <div class="info-card">
+      <p><strong>String Pool</strong> (String Intern Pool) is a special memory area inside the Heap where Java stores String literals. When you create a String using double quotes, JVM first checks if the same value exists in the pool. If yes, it <strong>reuses</strong> the reference — saving memory.</p>
+      
+      <div class="section-subtitle">📌 Two Ways to Create Strings</div>
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>String Literal:</strong> <code class="inline-code">String s1 = "Hello";</code> → stored in <strong>String Pool</strong>. Reuses existing objects.</li>
+        <li><strong>Using 'new' keyword:</strong> <code class="inline-code">String s2 = new String("Hello");</code> → stored in <strong>Heap memory</strong> (outside pool). Always creates a new object.</li>
+      </ul>
+      
+      <div class="code-block">
+        <pre>String a = "Hello";   // Goes to String Pool
+String b = "Hello";   // Reuses same object from pool
+String c = new String("Hello");  // New object in Heap
+
+System.out.println(a == b);  // true (same reference)
+System.out.println(a == c);  // false (different references)</pre>
+      </div>
+      <div class="output">✅ Memory efficiency: String Pool avoids duplicate string objects.</div>
+    </div>
+
+    <!-- Comparison: == vs .equals() -->
+    <div class="section-title">⚖️ Comparing Strings: == vs .equals()</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>== operator</strong> compares <strong>memory references</strong> (addresses).</li>
+        <li><strong>.equals() method</strong> compares <strong>actual content</strong> (character sequence).</li>
+      </ul>
+      <div class="code-block">
+        <pre>String s1 = "Java";
+String s2 = "Java";
+String s3 = new String("Java");
+
+System.out.println(s1 == s2);      // true (same pool reference)
+System.out.println(s1 == s3);      // false (different memory)
+System.out.println(s1.equals(s3)); // true (same content)</pre>
+      </div>
+      <div class="output">📌 Always use <code>.equals()</code> for content comparison in real applications.</div>
+    </div>
+
+    <!-- Interview Questions & Answers -->
+    <div class="section-title">🎤 Interview Questions & Answers</div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q1: Why are Strings immutable in Java?</strong></p>
+      <p><strong>Answer:</strong> Strings are immutable for security, caching (String Pool), thread-safety, and performance. Immutability allows String Pool to work efficiently — JVM can cache String literals safely. It also makes Strings inherently thread-safe and prevents accidental modification.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q2: What is the difference between StringBuilder and StringBuffer?</strong></p>
+      <p><strong>Answer:</strong> Both are mutable, but <strong>StringBuffer</strong> is <strong>thread-safe</strong> (synchronized methods) — suitable for multi-threaded environments. <strong>StringBuilder</strong> is not thread-safe but faster, ideal for single-threaded operations. Use StringBuilder for most scenarios unless thread-safety is required.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q3: What is the String Pool? Where is it located?</strong></p>
+      <p><strong>Answer:</strong> String Pool (String Intern Pool) is a special area inside the <strong>Heap memory</strong> where Java stores string literals. When a new literal is created, JVM checks the pool first. If found, reference is reused; otherwise, a new object is added to the pool. This optimizes memory usage.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q4: What is the difference between creating a String with <code>new</code> vs literal?</strong></p>
+      <p><strong>Answer:</strong> <code>String s = "text";</code> → stored in String Pool, may reuse existing object. <code>String s = new String("text");</code> → always creates a new object in Heap memory (outside pool), even if same value exists. Literal is more memory-efficient.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q5: Why should we use <code>.equals()</code> instead of <code>==</code> for string comparison?</strong></p>
+      <p><strong>Answer:</strong> <code>==</code> compares memory references, not content. <code>.equals()</code> compares actual character sequence. For user input or dynamic strings, references may differ even if content is same, so <code>.equals()</code> gives correct result.</p>
+    </div>
+
+    <div class="interview-box">
+      <p><strong>❓ Q6: What happens when you concatenate many Strings using <code>+</code> in a loop?</strong></p>
+      <p><strong>Answer:</strong> Each concatenation creates a new String object (due to immutability), leading to O(n²) time and memory overhead. For multiple concatenations, use <strong>StringBuilder</strong> or <strong>StringBuffer</strong> for efficiency.</p>
+      <div class="code-block" style="margin-top: 0.5rem;">
+        <pre>// Bad: creates many intermediate String objects
+String result = "";
+for (int i = 0; i &lt; 1000; i++) {
+    result += i;   // DON'T DO THIS
+}
+
+// Good: use StringBuilder
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i &lt; 1000; i++) {
+    sb.append(i);
+}
+String result = sb.toString();</pre>
+      </div>
+    </div>
+
+    <!-- Practical Examples -->
+    <div class="section-title">💻 Practical Examples</div>
+    
+    <div class="section-subtitle">Example 1: Immutability Demonstration</div>
+    <div class="code-block">
+      <pre>String str = "DSA";
+System.out.println(System.identityHashCode(str));
+str = str + " Champion";
+System.out.println(System.identityHashCode(str));
+// Different hash codes → different objects</pre>
+    </div>
+
+    <div class="section-subtitle">Example 2: String Pool Reuse</div>
+    <div class="code-block">
+      <pre>String s1 = "Tech";
+String s2 = "Tech";
+System.out.println(s1 == s2);  // true (same pool object)</pre>
+    </div>
+
+    <div class="section-subtitle">Example 3: StringBuilder Performance</div>
+    <div class="code-block">
+      <pre>StringBuilder sb = new StringBuilder("Interview");
+sb.append(" Prep");
+sb.append(" DSA");
+System.out.println(sb.toString());  // Interview Prep DSA</pre>
+    </div>
+
+    <!-- Common String Methods (Preview) -->
+    <div class="section-title">🔧 Common String Methods (Preview)</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><code>length()</code> → returns number of characters</li>
+        <li><code>charAt(index)</code> → returns character at position</li>
+        <li><code>substring(begin, end)</code> → extracts part of string</li>
+        <li><code>indexOf(char/string)</code> → finds position</li>
+        <li><code>toLowerCase() / toUpperCase()</code> → case conversion</li>
+        <li><code>trim()</code> → removes leading/trailing spaces</li>
+        <li><code>split(regex)</code> → splits into array</li>
+      </ul>
+      <div class="output">📌 We will cover all these methods with practical implementations in upcoming videos!</div>
+    </div>
+
+    <!-- Summary -->
+    <hr>
+    <div class="info-card" style="background: #fdfaf5;">
+      <div class="section-title" style="border-left-color: #e76f51;">📌 Summary & Key Takeaways</div>
+      <ul style="margin-left: 1.5rem;">
+        <li>✔️ <strong>String</strong> is immutable — stored in String Pool (literals) or Heap (new keyword).</li>
+        <li>✔️ <strong>StringBuilder</strong> → mutable, fast, not thread-safe (single-threaded).</li>
+        <li>✔️ <strong>StringBuffer</strong> → mutable, thread-safe, slower (multi-threaded).</li>
+        <li>✔️ Use <code>.equals()</code> for content comparison, <code>==</code> for reference comparison.</li>
+        <li>✔️ String Pool saves memory by reusing identical literals.</li>
+        <li>✔️ For heavy concatenation, always use StringBuilder/StringBuffer.</li>
+      </ul>
+      <div style="margin-top: 1rem; background: white; border-radius: 1rem; padding: 0.8rem;">
+        <p>🎯 <strong>Interview Tip:</strong> Be ready to explain immutability benefits (security, caching, thread-safety). Also remember that String literals are interned automatically, but you can call <code>.intern()</code> manually on heap strings to move them to pool.</p>
+      </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div style="text-Sureshgn: center; margin-top: 2rem; padding: 1rem; background: #eaf2f5; border-radius: 2rem;">
+      <p style="font-weight: 500;">🔜 <strong>Next Videos:</strong> Practical string operations, string manipulation problems, pSureshndrome, anagram, reverse words, and real interview questions.</p>
+      <p style="margin-top: 0.5rem; font-size: 0.9rem;">📌 Subscribe & share this playlist to become a DSA Champion!</p>
+    </div>
+
+
+  </div>
+</div>
+</body>
+</html>
