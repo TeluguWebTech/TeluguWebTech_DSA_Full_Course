@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Linked List Data Structure | Types, Array vs LinkedList | DSA Tutorial</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(135deg, #f0f7fc 0%, #e9f0f5 100%);
+      font-family: 'Inter', sans-serif;
+      color: #1a2f3f;
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      background: #ffffffdd;
+      backdrop-filter: blur(0px);
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+    .hero {
+      background: linear-gradient(105deg, #0a2b38 0%, #1a5a7a 100%);
+      padding: 2rem 2rem;
+      color: white;
+      border-bottom: 4px solid #f4a261;
+    }
+    .hero h1 {
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(120deg, #fff, #ffd6a5);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    .hero-badge {
+      background: #f4a261;
+      color: #1a2f3f;
+      font-weight: 600;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-top: 0.75rem;
+    }
+    .hero p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      opacity: 0.92;
+      max-width: 85%;
+    }
+    .content {
+      padding: 2rem 2rem 2.5rem 2rem;
+    }
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 1.5rem 0 1rem 0;
+      border-left: 6px solid #f4a261;
+      padding-left: 1rem;
+      color: #0c3b4f;
+    }
+    .section-subtitle {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 1.2rem 0 0.8rem 0;
+      color: #2c5a6e;
+    }
+    .info-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+      border: 1px solid #e9f0f5;
+    }
+    .code-block {
+      background: #0e2a36;
+      border-radius: 1.2rem;
+      padding: 1rem 1.5rem;
+      margin: 1.2rem 0;
+      overflow-x: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #e2f0fa;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.1);
+    }
+    .code-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .inline-code {
+      background: #eef2f7;
+      padding: 0.2rem 0.5rem;
+      border-radius: 10px;
+      font-family: monospace;
+      font-weight: 500;
+      color: #c4450c;
+      font-size: 0.9rem;
+    }
+    .comparison-table, .type-table {
+      overflow-x: auto;
+      margin: 1rem 0;
+    }
+    .comparison-table table, .type-table table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 1rem;
+    }
+    .comparison-table th, .comparison-table td,
+    .type-table th, .type-table td {
+      border: 1px solid #dce5ec;
+      padding: 0.75rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    .comparison-table th, .type-table th {
+      background: #f4a26120;
+      font-weight: 600;
+    }
+    .node-visual {
+      background: #fef7e8;
+      border-radius: 1rem;
+      padding: 1rem;
+      margin: 1rem 0;
+      text-align: center;
+      font-family: monospace;
+      font-size: 1rem;
+    }
+    .output {
+      background: #1e2f3a;
+      color: #bbe1ff;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 0.7rem 1.2rem;
+      border-radius: 14px;
+      margin-top: 0.8rem;
+    }
+    hr {
+      margin: 2rem 0;
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, #f4a261, #cfe3ef);
+    }
+    .interview-box {
+      background: #fff6e8;
+      padding: 1.2rem;
+      border-radius: 1.2rem;
+      margin-top: 1.5rem;
+      border-left: 6px solid #f4a261;
+    }
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #d4e2ec;
+      color: #3f6b84;
+    }
+    @media (max-width: 700px) {
+      .hero p { max-width: 100%; }
+      .content { padding: 1.2rem; }
+      .section-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <h1>🔗 Linked List Data Structure</h1>
+    <div class="hero-badge">🎯 DSA Series </div>
+    <p>Complete theoretical guide to Linked Lists: What is a Linked List? Node structure, Array vs LinkedList, Types (Singly, Doubly, Circular), and interview Q&A.</p>
+  </div>
+
+  <div class="content">
+    <!-- What is a Linked List -->
+    <div class="section-title">📌 What is a Linked List?</div>
+    <div class="info-card">
+      <p><strong>Linked List</strong> is a linear data structure where elements are stored in <strong>nodes</strong>. Unlike arrays, linked lists do NOT store elements in contiguous memory locations. Each node contains two parts:</p>
+      <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+        <li><strong>Data</strong> — the actual value stored</li>
+        <li><strong>Reference (Pointer)</strong> — address of the next node</li>
+      </ul>
+      <div class="node-visual">
+        🔵 [ Data | Next ] → 🔵 [ Data | Next ] → 🔵 [ Data | null ]
+      </div>
+      <p>Nodes are connected using pointers. The last node points to <code class="inline-code">null</code> (indicating end of list).</p>
+    </div>
+
+    <!-- Node Structure -->
+    <div class="section-title">🏗️ Node Structure (Conceptual)</div>
+    <div class="info-card">
+      <div class="code-block">
+        <pre>class Node {
+    int data;      // Data stored in the node
+    Node next;     // Reference to the next node
+    
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}</pre>
+      </div>
+      <div class="output">💡 Each node is an object. The <code>next</code> pointer connects nodes together forming a chain.</div>
+    </div>
+
+    <!-- Array vs LinkedList Comparison -->
+    <div class="section-title">⚖️ Array vs LinkedList: Key Differences</div>
+    <div class="comparison-table">
+      <table>
+        <thead>
+          <tr><th>Feature</th><th>Array</th><th>Linked List</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Memory Allocation</td><td>Contiguous (continuous memory)</td><td>Non-contiguous (scattered memory)</td></tr>
+          <tr><td>Size</td><td>Fixed size (static)</td><td>Dynamic size (can grow/shrink)</td></tr>
+          <tr><td>Access Time</td><td>O(1) random access via index</td><td>O(n) sequential access</td></tr>
+          <tr><td>Insertion/Deletion</td><td>O(n) — requires shifting elements</td><td>O(1) if we have reference to node</td></tr>
+          <tr><td>Memory Overhead</td><td>Less (only data)</td><td>More (extra pointer per node)</td></tr>
+          <tr><td>Cache Friendliness</td><td>High (contiguous memory)</td><td>Low (nodes scattered)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="output">📌 Arrays are better for frequent access by index. Linked Lists are better for frequent insertions/deletions.</div>
+
+    <!-- Dynamic Nature of LinkedList -->
+    <div class="section-subtitle">📈 Dynamic Size Advantage</div>
+    <div class="info-card">
+      <p>Arrays have <strong>fixed size</strong>. To insert/delete, we needed to create a new array. Linked Lists are <strong>dynamic</strong> — nodes can be added or removed easily without recreating the entire structure.</p>
+      <div class="node-visual">
+        Insert: Simply create new node and update pointers → O(1)<br>
+        Delete: Update pointers of previous node → O(1)
+      </div>
+    </div>
+
+    <!-- Types of Linked Lists -->
+    <div class="section-title">📚 Types of Linked Lists</div>
+    
+    <!-- Type 1: Singly Linked List -->
+    <div class="section-subtitle">1️⃣ Singly Linked List</div>
+    <div class="info-card">
+      <p>Each node has <strong>one pointer</strong> (<code>next</code>) pointing to the next node. Traversal is only <strong>forward</strong> direction.</p>
+      <div class="node-visual">
+        [10 | →] → [20 | →] → [30 | null]
+      </div>
+      <ul style="margin-left: 1.5rem;">
+        <li>Head points to first node</li>
+        <li>Last node points to <code>null</code></li>
+        <li>Simple and memory efficient (only one pointer per node)</li>
+      </ul>
+    </div>
+
+    <!-- Type 2: Doubly Linked List -->
+    <div class="section-subtitle">2️⃣ Doubly Linked List</div>
+    <div class="info-card">
+      <p>Each node has <strong>two pointers</strong>: <code>prev</code> (previous node) and <code>next</code> (next node). Allows traversal in <strong>both forward and backward</strong> directions.</p>
+      <div class="node-visual">
+        null ← [10 | prev/next] ↔ [20 | prev/next] ↔ [30 | prev/next] → null
+      </div>
+      <ul style="margin-left: 1.5rem;">
+        <li>First node's <code>prev</code> points to <code>null</code></li>
+        <li>Last node's <code>next</code> points to <code>null</code></li>
+        <li>Easier deletion (we know previous node)</li>
+        <li>Extra memory overhead (two pointers per node)</li>
+      </ul>
+      <div class="code-block">
+        <pre>class DoublyNode {
+    int data;
+    DoublyNode prev;
+    DoublyNode next;
+    
+    DoublyNode(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}</pre>
+      </div>
+    </div>
+
+    <!-- Type 3: Circular Linked List -->
+    <div class="section-subtitle">3️⃣ Circular Linked List</div>
+    <div class="info-card">
+      <p>In a circular linked list, the <strong>last node points back to the first node</strong>, forming a circle. Can be implemented as <strong>Singly Circular</strong> or <strong>Doubly Circular</strong>.</p>
+      <div class="node-visual">
+        [10 | →] → [20 | →] → [30 | →] ┐<br>
+        ↑_________________________________┘
+      </div>
+      <ul style="margin-left: 1.5rem;">
+        <li>No <code>null</code> references</li>
+        <li>Useful for round-robin scheduling, playing lists, etc.</li>
+        <li>Traversal continues infinitely unless we track head</li>
+      </ul>
+    </div>
+
+    <!-- Types Summary Table -->
+    <div class="section-subtitle">📊 Types Comparison</div>
+    <div class="type-table">
+      <table>
+        <thead><tr><th>Type</th><th>Pointers per Node</th><th>Traversal Direction</th><th>Memory Overhead</th><th>Use Case</th></tr></thead>
+        <tbody>
+          <tr><td>Singly Linked List</td><td>1 (next)</td><td>Forward only</td><td>Low</td><td>Simple lists, stacks, queues</td></tr>
+          <tr><td>Doubly Linked List</td><td>2 (prev, next)</td><td>Forward & Backward</td><td>Medium</td><td>Browser history, undo/redo</td></tr>
+          <tr><td>Circular Linked List</td><td>1 or 2</td><td>Circular (no end)</td><td>Low/Medium</td><td>Round-robin, game loops</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Why Reference Pointer is Needed -->
+    <div class="section-title">🔗 Why Reference Pointer?</div>
+    <div class="info-card">
+      <p>Since nodes are stored in <strong>non-contiguous memory</strong> (scattered across heap), we need pointers to connect them. Without pointers, we would have no way to know which node comes next.</p>
+      <div class="node-visual">
+        Memory Address: 0x100 → Node: [10 | 0x200]<br>
+        Memory Address: 0x200 → Node: [20 | 0x300]<br>
+        Memory Address: 0x300 → Node: [30 | null]
+      </div>
+      <div class="output">✅ Pointers create the logical sequence even though physical memory is not continuous.</div>
+    </div>
+
+    <!-- Advantages & Disadvantages -->
+    <div class="section-title">✅ Advantages & ❌ Disadvantages</div>
+    <div class="info-card">
+      <p><strong>Advantages:</strong></p>
+      <ul style="margin-left: 1.5rem;">
+        <li>✔️ Dynamic size — grows/shrinks at runtime</li>
+        <li>✔️ Efficient insertion/deletion (O(1) at head if we have reference)</li>
+        <li>✔️ No memory wastage (allocates exactly as needed)</li>
+        <li>✔️ Can represent complex data structures (stacks, queues, graphs)</li>
+      </ul>
+      <p style="margin-top: 0.8rem;"><strong>Disadvantages:</strong></p>
+      <ul style="margin-left: 1.5rem;">
+        <li>❌ No random access — must traverse from head (O(n))</li>
+        <li>❌ Extra memory for pointers (8 bytes per node on 64-bit)</li>
+        <li>❌ Cache unfriendly — nodes scattered in memory</li>
+        <li>❌ Reverse traversal is difficult in singly linked list</li>
+      </ul>
+    </div>
+
+    <!-- ========== INTERVIEW QUESTIONS & ANSWERS ========== -->
+    <div class="section-title">🎤 Interview Questions & Answers</div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q1: What is a Linked List? How is it different from an Array?</strong></p>
+      <p><strong>Answer:</strong> Linked List is a linear data structure where elements (nodes) are stored non-contiguously, each containing data and a pointer to the next node. Arrays store elements contiguously with index-based access. Linked lists are dynamic (size can change), while arrays have fixed size. Insertion/deletion is O(1) in linked lists (with reference) vs O(n) in arrays.</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q2: What are the types of Linked Lists? Explain each.</strong></p>
+      <p><strong>Answer:</strong> Three main types: <strong>Singly Linked List</strong> (one pointer per node, forward traversal), <strong>Doubly Linked List</strong> (two pointers per node — prev and next, bidirectional traversal), <strong>Circular Linked List</strong> (last node points back to first, no null, can be singly or doubly circular).</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q3: Why is insertion/deletion faster in Linked Lists than Arrays?</strong></p>
+      <p><strong>Answer:</strong> In arrays, insertion/deletion requires shifting elements to maintain contiguous memory — O(n). In linked lists, we just update pointers of adjacent nodes — O(1) if we have the reference to the position. However, finding the position may still be O(n).</p>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q4: Can we implement a Linked List in Java without using built-in LinkedList class?</strong></p>
+      <p><strong>Answer:</strong> Yes! We create a custom Node class (with data and next pointer) and manually manage head, insertion, deletion, and traversal. This is a common interview task.</p>
+      <div class="code-block" style="margin-top: 0.5rem;">
+        <pre>class Node {
+    int data;
+    Node next;
+    Node(int data) { this.data = data; }
+}</pre>
+      </div>
+    </div>
+    
+    <div class="interview-box">
+      <p><strong>❓ Q5: What is the time complexity to search an element in a Linked List?</strong></p>
+      <p><strong>Answer:</strong> O(n) in worst case because we must traverse from head to find the element (no random access).</p>
+    </div>
+
+    <div class="interview-box">
+      <p><strong>❓ Q6: What happens if we lose the head reference of a Linked List?</strong></p>
+      <p><strong>Answer:</strong> The entire list becomes unreachable and will be garbage collected. Always store the head reference to access the list.</p>
+    </div>
+
+    <div class="interview-box">
+      <p><strong>❓ Q7: When would you choose a Linked List over an Array?</strong></p>
+      <p><strong>Answer:</strong> Choose Linked List when: 1) You need frequent insertions/deletions, 2) You don't know the size in advance, 3) You don't need random access, 4) Memory is not a constraint (extra pointer overhead is acceptable).</p>
+    </div>
+
+    <!-- Real Life Applications -->
+    <div class="section-title">🌍 Real-Life Applications</div>
+    <div class="info-card">
+      <ul style="margin-left: 1.5rem;">
+        <li><strong>Browser History:</strong> Doubly linked list to go forward/backward</li>
+        <li><strong>Music Playlist:</strong> Circular linked list for repeat mode</li>
+        <li><strong>Undo/Redo Feature:</strong> Doubly linked list</li>
+        <li><strong>Image Viewer:</strong> Next/Previous navigation</li>
+        <li><strong>Process Scheduling:</strong> Circular linked list for round-robin</li>
+        <li><strong>Hash Table Collision Handling:</strong> Chaining using linked lists</li>
+      </ul>
+    </div>
+
+    <!-- Summary -->
+    <hr>
+    <div class="info-card" style="background: #fdfaf5;">
+      <div class="section-title" style="border-left-color: #e76f51;">📌 Summary & Key Takeaways</div>
+      <ul style="margin-left: 1.5rem;">
+        <li>✔️ <strong>Linked List</strong> = nodes with data + pointer, stored non-contiguously.</li>
+        <li>✔️ <strong>Dynamic size</strong> — no fixed capacity, easy insert/delete.</li>
+        <li>✔️ <strong>Three types:</strong> Singly (forward), Doubly (both directions), Circular (last → first).</li>
+        <li>✔️ <strong>Array vs LinkedList:</strong> Arrays have O(1) access, fixed size; Linked Lists have O(1) insert/delete (with reference), dynamic size.</li>
+        <li>✔️ <strong>Trade-offs:</strong> Linked Lists use extra memory for pointers, no random access.</li>
+      </ul>
+      <div style="margin-top: 1rem; background: white; border-radius: 1rem; padding: 0.8rem;">
+        <p>🎯 <strong>Interview Tip:</strong> Be ready to draw diagrams of Singly, Doubly, and Circular Linked Lists. Know the time complexities of search, insert, delete. Explain why insertion is O(1) if you have the node reference.</p>
+      </div>
+    </div>
+
+    <!-- Next Steps -->
+   
+  </div>
+</div>
+</body>
+</html>
